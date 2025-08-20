@@ -1,0 +1,6 @@
+24012011142_Vatsal [(none)] Tue Aug 19 13:22:25 2025 
+> DROP DATABASE Practical_1_24012011142;
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [(none)] Tue Aug 19 13:23:10 2025 
+> Terminal close -- exit!

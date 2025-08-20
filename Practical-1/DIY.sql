@@ -1,0 +1,9 @@
+CREATE DATABASE CAR_142;
+
+CREATE TABLE Cars_24012011142 (
+    carId VARCHAR(5),
+    modelName VARCHAR(50),
+    year DATE,
+    price DECIMAL(10,2)
+);
+
