@@ -1,0 +1,779 @@
+
+
+mysql> PROMPT 24012011142_Vatsal [\d] \D \n>
+PROMPT set to '24012011142_Vatsal [\d] \D \n> '
+24012011142_Vatsal [(none)] Sat Aug 23 11:51:41 2025
+>
+
+
+
+
+
+24012011142_Vatsal [(none)] Sat Aug 23 11:51:41 2025
+> tee C:\Users\Vatsal\Desktop\Sem3\DBMS\Practical-1\Tasks.txt
+Logging to file 'C:\Users\Vatsal\Desktop\Sem3\DBMS\Practical-1\Tasks.txt'
+
+
+
+
+24012011142_Vatsal [(none)] Sat Aug 23 11:54:37 2025 
+> 
+24012011142_Vatsal [(none)] Sat Aug 23 12:02:12 2025 
+> CREATE DATABASE Practical_1_24012011142;
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [(none)] Sat Aug 23 12:02:24 2025 
+> USE Practical_1_24012011142;
+Database changed
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:02:32 2025 
+> CREATE TABLE ACCOUNT_24012011142 (
+    ->     acc_no VARCHAR(5) PRIMARY KEY,
+    ->     Name VARCHAR(30),
+    ->     City VARCHAR(20),
+    ->     Balance DECIMAL(10, 2),
+    ->     loan_taken VARCHAR(5)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:02:38 2025 
+> DESC ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:02:42 2025 
+> INSERT INTO ACCOUNT_24012011142 (acc_no, Name, City, Balance, loan_taken) VALUES
+    -> ('A001', 'Patel Jigar', 'Mehsana', 50000, 'YES'),
+    -> ('A002', 'Patel Ramesh', 'Mehsana', 50000, 'YES'),
+    -> ('A003', 'Dave Hardik', 'Ahmedabad', 75000, 'NO'),
+    -> ('A004', 'Soni Hetal', 'Ahmedabad', 100000, 'NO'),
+    -> ('A005', 'Sony Atul', 'Vadodara', 100000, 'YES');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:02:48 2025 
+> SELECT * FROM ACCOUNT_24012011142;
++--------+--------------+-----------+-----------+------------+
+| acc_no | Name         | City      | Balance   | loan_taken |
++--------+--------------+-----------+-----------+------------+
+| A001   | Patel Jigar  | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik  | Ahmedabad |  75000.00 | NO         |
+| A004   | Soni Hetal   | Ahmedabad | 100000.00 | NO         |
+| A005   | Sony Atul    | Vadodara  | 100000.00 | YES        |
++--------+--------------+-----------+-----------+------------+
+5 rows in set (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:02:53 2025 
+> CREATE TABLE LOAN_24012011142 (
+    ->     loan_no VARCHAR(5) PRIMARY KEY,
+    ->     acc_no VARCHAR(5),
+    ->     loan_amt DECIMAL(10, 2),
+    ->     interest_rate DECIMAL(5, 2),
+    ->     loan_date DATE,
+    ->     remaining_loan DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:02:58 2025 
+> DESC LOAN_24012011142;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| loan_no        | varchar(5)    | NO   | PRI | NULL    |       |
+| acc_no         | varchar(5)    | YES  |     | NULL    |       |
+| loan_amt       | decimal(10,2) | YES  |     | NULL    |       |
+| interest_rate  | decimal(5,2)  | YES  |     | NULL    |       |
+| loan_date      | date          | YES  |     | NULL    |       |
+| remaining_loan | decimal(10,2) | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:02 2025 
+> INSERT INTO LOAN_24012011142 (loan_no, acc_no, loan_amt, interest_rate, loan_date, remaining_loan) VALUES
+    -> ('L001', 'A001', 100000, 7, '2004-01-01', 75000),
+    -> ('L002', 'A002', 300000, 9, '2004-05-18', 150000),
+    -> ('L003', 'A005', 500000, 11, '2004-06-15', 300000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:08 2025 
+> SELECT * FROM LOAN_24012011142;
++---------+--------+-----------+---------------+------------+----------------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan |
++---------+--------+-----------+---------------+------------+----------------+
+| L001    | A001   | 100000.00 |          7.00 | 2004-01-01 |       75000.00 |
+| L002    | A002   | 300000.00 |          9.00 | 2004-05-18 |      150000.00 |
+| L003    | A005   | 500000.00 |         11.00 | 2004-06-15 |      300000.00 |
++---------+--------+-----------+---------------+------------+----------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:15 2025 
+> CREATE TABLE INSTALLMENT_24012011142 (
+    ->     loan_no VARCHAR(5),
+    ->     installment_no VARCHAR(5) PRIMARY KEY,
+    ->     installment_date DATE,
+    ->     Amount DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:21 2025 
+> DESC INSTALLMENT_24012011142;
++------------------+---------------+------+-----+---------+-------+
+| Field            | Type          | Null | Key | Default | Extra |
++------------------+---------------+------+-----+---------+-------+
+| loan_no          | varchar(5)    | YES  |     | NULL    |       |
+| installment_no   | varchar(5)    | NO   | PRI | NULL    |       |
+| installment_date | date          | YES  |     | NULL    |       |
+| Amount           | decimal(10,2) | YES  |     | NULL    |       |
++------------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:26 2025 
+> INSERT INTO INSTALLMENT_24012011142 (loan_no, installment_no, installment_date, Amount) VALUES
+    -> ('L001', 'I001', '2004-02-02', 15000),
+    -> ('L002', 'I002', '2004-06-18', 20000),
+    -> ('L003', 'I003', '2004-07-15', 20000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:31 2025 
+> SELECT * FROM INSTALLMENT_24012011142;
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:36 2025 
+> SELECT * FROM INSTALLMENT_24012011142;
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:41 2025 
+> SELECT loan_no, installment_no, Amount FROM INSTALLMENT_24012011142;
++---------+----------------+----------+
+| loan_no | installment_no | Amount   |
++---------+----------------+----------+
+| L001    | I001           | 15000.00 |
+| L002    | I002           | 20000.00 |
+| L003    | I003           | 20000.00 |
++---------+----------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:48 2025 
+> SELECT acc_no, Name FROM ACCOUNT_24012011142 WHERE City = 'Ahmedabad';
++--------+-------------+
+| acc_no | Name        |
++--------+-------------+
+| A003   | Dave Hardik |
+| A004   | Soni Hetal  |
++--------+-------------+
+2 rows in set (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:53 2025 
+> SELECT * FROM LOAN_24012011142 WHERE loan_amt > 100000;
++---------+--------+-----------+---------------+------------+----------------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan |
++---------+--------+-----------+---------------+------------+----------------+
+| L002    | A002   | 300000.00 |          9.00 | 2004-05-18 |      150000.00 |
+| L003    | A005   | 500000.00 |         11.00 | 2004-06-15 |      300000.00 |
++---------+--------+-----------+---------------+------------+----------------+
+2 rows in set (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:03:57 2025 
+> DESCRIBE ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:04:03 2025 
+> DESCRIBE LOAN_24012011142;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| loan_no        | varchar(5)    | NO   | PRI | NULL    |       |
+| acc_no         | varchar(5)    | YES  |     | NULL    |       |
+| loan_amt       | decimal(10,2) | YES  |     | NULL    |       |
+| interest_rate  | decimal(5,2)  | YES  |     | NULL    |       |
+| loan_date      | date          | YES  |     | NULL    |       |
+| remaining_loan | decimal(10,2) | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:04:03 2025 
+> DESCRIBE INSTALLMENT_24012011142;
++------------------+---------------+------+-----+---------+-------+
+| Field            | Type          | Null | Key | Default | Extra |
++------------------+---------------+------+-----+---------+-------+
+| loan_no          | varchar(5)    | YES  |     | NULL    |       |
+| installment_no   | varchar(5)    | NO   | PRI | NULL    |       |
+| installment_date | date          | YES  |     | NULL    |       |
+| Amount           | decimal(10,2) | YES  |     | NULL    |       |
++------------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:04:11 2025 
+> SELECT * FROM ACCOUNT_24012011142;
++--------+--------------+-----------+-----------+------------+
+| acc_no | Name         | City      | Balance   | loan_taken |
++--------+--------------+-----------+-----------+------------+
+| A001   | Patel Jigar  | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik  | Ahmedabad |  75000.00 | NO         |
+| A004   | Soni Hetal   | Ahmedabad | 100000.00 | NO         |
+| A005   | Sony Atul    | Vadodara  | 100000.00 | YES        |
++--------+--------------+-----------+-----------+------------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:04:20 2025 
+> UPDATE ACCOUNT_24012011142 SET Name = 'Patel Hiren' WHERE Name = 'Patel Jigar';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:04:29 2025 
+> SELECT * FROM ACCOUNT_24012011142;
++--------+--------------+-----------+-----------+------------+
+| acc_no | Name         | City      | Balance   | loan_taken |
++--------+--------------+-----------+-----------+------------+
+| A001   | Patel Hiren  | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik  | Ahmedabad |  75000.00 | NO         |
+| A004   | Soni Hetal   | Ahmedabad | 100000.00 | NO         |
+| A005   | Sony Atul    | Vadodara  | 100000.00 | YES        |
++--------+--------------+-----------+-----------+------------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:04:36 2025 
+> SELECT * FROM ACCOUNT_24012011142;
++--------+--------------+-----------+-----------+------------+
+| acc_no | Name         | City      | Balance   | loan_taken |
++--------+--------------+-----------+-----------+------------+
+| A001   | Patel Hiren  | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik  | Ahmedabad |  75000.00 | NO         |
+| A004   | Soni Hetal   | Ahmedabad | 100000.00 | NO         |
+| A005   | Sony Atul    | Vadodara  | 100000.00 | YES        |
++--------+--------------+-----------+-----------+------------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:04:49 2025 
+> UPDATE ACCOUNT_24012011142 SET Name = 'Kothari Nehal' , City = 'Kherva' WHERE acc_no = 'A005';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:04:57 2025 
+> SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+
+| acc_no | Name          | City      | Balance   | loan_taken |
++--------+---------------+-----------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         |
+| A004   | Soni Hetal    | Ahmedabad | 100000.00 | NO         |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        |
++--------+---------------+-----------+-----------+------------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:05 2025 
+> SELECT * FROM ACCOUNT_24012011142 WHERE loan_taken = 'YES';
++--------+---------------+---------+-----------+------------+
+| acc_no | Name          | City    | Balance   | loan_taken |
++--------+---------------+---------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana |  50000.00 | YES        |
+| A005   | Kothari Nehal | Kherva  | 100000.00 | YES        |
++--------+---------------+---------+-----------+------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:16 2025 
+> DESCRIBE ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:21 2025 
+> ALTER TABLE ACCOUNT_24012011142 ADD COLUMN address VARCHAR(20);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:29 2025 
+> DESCRIBE ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
+| address    | varchar(20)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:33 2025 
+> DESC LOAN_24012011142;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| loan_no        | varchar(5)    | NO   | PRI | NULL    |       |
+| acc_no         | varchar(5)    | YES  |     | NULL    |       |
+| loan_amt       | decimal(10,2) | YES  |     | NULL    |       |
+| interest_rate  | decimal(5,2)  | YES  |     | NULL    |       |
+| loan_date      | date          | YES  |     | NULL    |       |
+| remaining_loan | decimal(10,2) | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:38 2025 
+> ALTER TABLE LOAN_24012011142 ADD COLUMN credit_no VARCHAR(4);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:42 2025 
+> DESC LOAN_24012011142;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| loan_no        | varchar(5)    | NO   | PRI | NULL    |       |
+| acc_no         | varchar(5)    | YES  |     | NULL    |       |
+| loan_amt       | decimal(10,2) | YES  |     | NULL    |       |
+| interest_rate  | decimal(5,2)  | YES  |     | NULL    |       |
+| loan_date      | date          | YES  |     | NULL    |       |
+| remaining_loan | decimal(10,2) | YES  |     | NULL    |       |
+| credit_no      | varchar(4)    | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:47 2025 
+> DESC ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
+| address    | varchar(20)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:05:55 2025 
+> CREATE TABLE LOAN_TEMP AS SELECT loan_no, acc_no, loan_amt, loan_date FROM LOAN_24012011142;
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:06:00 2025 
+> DESC LOAN_TEMP;
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| loan_no   | varchar(5)    | NO   |     | NULL    |       |
+| acc_no    | varchar(5)    | YES  |     | NULL    |       |
+| loan_amt  | decimal(10,2) | YES  |     | NULL    |       |
+| loan_date | date          | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:06:03 2025 
+> DESC ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
+| address    | varchar(20)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:06:07 2025 
+> CREATE TABLE TRANS_TEMP AS SELECT acc_no AS account_number FROM ACCOUNT_24012011142;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:06:11 2025 
+> DESC TRANS_TEMP;
++----------------+------------+------+-----+---------+-------+
+| Field          | Type       | Null | Key | Default | Extra |
++----------------+------------+------+-----+---------+-------+
+| account_number | varchar(5) | NO   |     | NULL    |       |
++----------------+------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:06:18 2025 
+> DESC LOAN_24012011142;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| loan_no        | varchar(5)    | NO   | PRI | NULL    |       |
+| acc_no         | varchar(5)    | YES  |     | NULL    |       |
+| loan_amt       | decimal(10,2) | YES  |     | NULL    |       |
+| interest_rate  | decimal(5,2)  | YES  |     | NULL    |       |
+| loan_date      | date          | YES  |     | NULL    |       |
+| remaining_loan | decimal(10,2) | YES  |     | NULL    |       |
+| credit_no      | varchar(4)    | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:06:45 2025 
+> ALTER TABLE LOAN_24012011142 MODIFY acc_no VARCHAR(7);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:06:57 2025 
+> DESC LOAN_24012011142;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| loan_no        | varchar(5)    | NO   | PRI | NULL    |       |
+| acc_no         | varchar(7)    | YES  |     | NULL    |       |
+| loan_amt       | decimal(10,2) | YES  |     | NULL    |       |
+| interest_rate  | decimal(5,2)  | YES  |     | NULL    |       |
+| loan_date      | date          | YES  |     | NULL    |       |
+| remaining_loan | decimal(10,2) | YES  |     | NULL    |       |
+| credit_no      | varchar(4)    | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:01 2025 
+> SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+---------+
+| acc_no | Name          | City      | Balance   | loan_taken | address |
++--------+---------------+-----------+-----------+------------+---------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        | NULL    |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        | NULL    |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         | NULL    |
+| A004   | Soni Hetal    | Ahmedabad | 100000.00 | NO         | NULL    |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        | NULL    |
++--------+---------------+-----------+-----------+------------+---------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:08 2025 
+> DELETE FROM ACCOUNT_24012011142 WHERE acc_no = 'A004';
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:17 2025 
+> SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+---------+
+| acc_no | Name          | City      | Balance   | loan_taken | address |
++--------+---------------+-----------+-----------+------------+---------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        | NULL    |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        | NULL    |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         | NULL    |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        | NULL    |
++--------+---------------+-----------+-----------+------------+---------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:25 2025 
+> SELECT * FROM LOAN_24012011142;
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan | credit_no |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| L001    | A001   | 100000.00 |          7.00 | 2004-01-01 |       75000.00 | NULL      |
+| L002    | A002   | 300000.00 |          9.00 | 2004-05-18 |      150000.00 | NULL      |
+| L003    | A005   | 500000.00 |         11.00 | 2004-06-15 |      300000.00 | NULL      |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:31 2025 
+> UPDATE LOAN_24012011142 SET interest_rate = interest_rate + 2;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:37 2025 
+> SELECT * FROM LOAN_24012011142;
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan | credit_no |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| L001    | A001   | 100000.00 |          9.00 | 2004-01-01 |       75000.00 | NULL      |
+| L002    | A002   | 300000.00 |         11.00 | 2004-05-18 |      150000.00 | NULL      |
+| L003    | A005   | 500000.00 |         13.00 | 2004-06-15 |      300000.00 | NULL      |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:43 2025 
+> SELECT * FROM LOAN_24012011142;
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan | credit_no |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| L001    | A001   | 100000.00 |          9.00 | 2004-01-01 |       75000.00 | NULL      |
+| L002    | A002   | 300000.00 |         11.00 | 2004-05-18 |      150000.00 | NULL      |
+| L003    | A005   | 500000.00 |         13.00 | 2004-06-15 |      300000.00 | NULL      |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:47 2025 
+> SELECT * FROM LOAN_24012011142 WHERE MONTH(loan_date) = 1;
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan | credit_no |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| L001    | A001   | 100000.00 |          9.00 | 2004-01-01 |       75000.00 | NULL      |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:52 2025 
+> SELECT * FROM INSTALLMENT_24012011142;
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:07:58 2025 
+> UPDATE INSTALLMENT_24012011142 SET installment_date = '2022-03-03' WHERE installment_date = '2021-02-02';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:04 2025 
+> SELECT * FROM INSTALLMENT_24012011142;
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:10 2025 
+> SELECT * FROM LOAN_24012011142;
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan | credit_no |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| L001    | A001   | 100000.00 |          9.00 | 2004-01-01 |       75000.00 | NULL      |
+| L002    | A002   | 300000.00 |         11.00 | 2004-05-18 |      150000.00 | NULL      |
+| L003    | A005   | 500000.00 |         13.00 | 2004-06-15 |      300000.00 | NULL      |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:14 2025 
+> SELECT loan_amt * 2 AS double_loan_amt FROM LOAN_24012011142;
++-----------------+
+| double_loan_amt |
++-----------------+
+|       200000.00 |
+|       600000.00 |
+|      1000000.00 |
++-----------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:19 2025 
+> SELECT * FROM LOAN_24012011142;
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan | credit_no |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| L001    | A001   | 100000.00 |          9.00 | 2004-01-01 |       75000.00 | NULL      |
+| L002    | A002   | 300000.00 |         11.00 | 2004-05-18 |      150000.00 | NULL      |
+| L003    | A005   | 500000.00 |         13.00 | 2004-06-15 |      300000.00 | NULL      |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:25 2025 
+> UPDATE LOAN_24012011142 SET loan_amt = 150000 WHERE loan_no = 'L001';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:29 2025 
+> SELECT * FROM LOAN_24012011142;
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| loan_no | acc_no | loan_amt  | interest_rate | loan_date  | remaining_loan | credit_no |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+| L001    | A001   | 150000.00 |          9.00 | 2004-01-01 |       75000.00 | NULL      |
+| L002    | A002   | 300000.00 |         11.00 | 2004-05-18 |      150000.00 | NULL      |
+| L003    | A005   | 500000.00 |         13.00 | 2004-06-15 |      300000.00 | NULL      |
++---------+--------+-----------+---------------+------------+----------------+-----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:34 2025 
+> SELECT * FROM INSTALLMENT_24012011142;
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:39 2025 
+> SELECT loan_no, Amount, installment_date FROM INSTALLMENT_24012011142 ORDER BY installment_date;
++---------+----------+------------------+
+| loan_no | Amount   | installment_date |
++---------+----------+------------------+
+| L001    | 15000.00 | 2004-02-02       |
+| L002    | 20000.00 | 2004-06-18       |
+| L003    | 20000.00 | 2004-07-15       |
++---------+----------+------------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:45 2025 
+> SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+---------+
+| acc_no | Name          | City      | Balance   | loan_taken | address |
++--------+---------------+-----------+-----------+------------+---------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        | NULL    |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        | NULL    |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         | NULL    |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        | NULL    |
++--------+---------------+-----------+-----------+------------+---------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:51 2025 
+> SELECT * FROM ACCOUNT_24012011142 ORDER BY acc_no DESC;
++--------+---------------+-----------+-----------+------------+---------+
+| acc_no | Name          | City      | Balance   | loan_taken | address |
++--------+---------------+-----------+-----------+------------+---------+
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        | NULL    |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         | NULL    |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        | NULL    |
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        | NULL    |
++--------+---------------+-----------+-----------+------------+---------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:08:55 2025 
+> DROP TABLE LOAN_TEMP;
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:09:00 2025 
+> shao tables
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shao tables' at line 1
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:43:49 2025 
+> shao tables;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shao tables' at line 1
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:43:53 2025 
+> shaow tables;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shaow tables' at line 1
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:44:00 2025 
+> show tables;;
++-----------------------------------+
+| Tables_in_practical_1_24012011142 |
++-----------------------------------+
+| account_24012011142               |
+| installment_24012011142           |
+| loan_24012011142                  |
+| trans_temp                        |
++-----------------------------------+
+4 rows in set (0.00 sec)
+
+ERROR: 
+No query specified
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:44:06 2025 
+> DESC ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
+| address    | varchar(20)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:44:52 2025 
+> CREATE TABLE ACCOUNT_TEMP AS SELECT acc_no, Name, Balance FROM ACCOUNT_24012011142;
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:44:59 2025 
+> DESC ACCOUNT_TEMP;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| acc_no  | varchar(5)    | NO   |     | NULL    |       |
+| Name    | varchar(30)   | YES  |     | NULL    |       |
+| Balance | decimal(10,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:45:08 2025 
+> drop table TRNS_TEMP;
+ERROR 1051 (42S02): Unknown table 'practical_1_24012011142.trns_temp'
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:55:23 2025 
+> drop table trans_temp;
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:55:44 2025 
+> CREATE TABLE TRANS_TEMP AS SELECT loan_no, acc_no AS account_number, loan_amt, loan_date FROM LOAN_TEMP;
+ERROR 1146 (42S02): Table 'practical_1_24012011142.loan_temp' doesn't exist
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:55:54 2025 
+> CREATE TABLE LOAN_TEMP AS SELECT loan_no, acc_no, loan_amt, loan_date FROM LOAN_24012011142;
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:56:07 2025 
+> CREATE TABLE TRANS_TEMP AS SELECT loan_no, acc_no AS account_number, loan_amt, loan_date FROM LOAN_TEMP;
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:56:09 2025 
+> DESC TRANS_TEMP;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| loan_no        | varchar(5)    | NO   |     | NULL    |       |
+| account_number | varchar(7)    | YES  |     | NULL    |       |
+| loan_amt       | decimal(10,2) | YES  |     | NULL    |       |
+| loan_date      | date          | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 12:56:17 2025 
+> DROP TABLE LOAN_TEMP;
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 13:07:21 2025 
+> SHOW tables;
++-----------------------------------+
+| Tables_in_practical_1_24012011142 |
++-----------------------------------+
+| account_24012011142               |
+| account_temp                      |
+| installment_24012011142           |
+| loan_24012011142                  |
+| trans_temp                        |
++-----------------------------------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_1_24012011142] Sat Aug 23 13:07:45 2025 
+> Terminal close -- exit!

@@ -1,0 +1,129 @@
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:27:36 2025 
+>CREATE TABLE TRANSACTION_24012011142 (
+    ->     Acc_no VARCHAR(5),
+    ->     Tr_date DATE,
+    ->     Amt DECIMAL(10, 2),
+    ->     Type_of_tr CHAR(1),
+    ->     Mode_of_pay VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:27:56 2025 
+>INSERT INTO TRANSACTION_24012011142 (Acc_no, Tr_date, Amt, Type_of_tr, Mode_of_pay) VALUES 
+    -> ('A001', '2021-05-01', 10000.00, 'D', 'Cash'),
+    -> ('A002', '2021-07-02', 5000.00, 'W', 'Cheque'),
+    -> ('A003', '2021-08-03', 25000.00, 'D', 'Cheque'),
+    -> ('A004', '2021-05-04', 30000.00, 'D', 'Cheque'),
+    -> ('A005', '2021-10-05', 15000.00, 'W', 'Cash');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:28:02 2025 
+>SELECT SUM(Amt) AS Total_Amount FROM TRANSACTION_24012011142;
++--------------+
+| Total_Amount |
++--------------+
+|     85000.00 |
++--------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:28:24 2025 
+>SELECT MIN(Amt) AS Minimum_Amount FROM TRANSACTION_24012011142;
++----------------+
+| Minimum_Amount |
++----------------+
+|        5000.00 |
++----------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:28:30 2025 
+>SELECT MAX(Amt) AS Maximum_Amount FROM TRANSACTION_24012011142;
++----------------+
+| Maximum_Amount |
++----------------+
+|       30000.00 |
++----------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:28:35 2025 
+>SELECT COUNT(*) AS Total_Transactions FROM TRANSACTION_24012011142;
++--------------------+
+| Total_Transactions |
++--------------------+
+|                  5 |
++--------------------+
+1 row in set (0.01 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:28:55 2025 
+>SELECT COUNT(*) AS Cheque_Transactions FROM TRANSACTION_24012011142 WHERE Mode_of_pay = 'Cheque';
++---------------------+
+| Cheque_Transactions |
++---------------------+
+|                   3 |
++---------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:29:04 2025 
+>SELECT COUNT(*) AS Not_Deposit_Transactions FROM TRANSACTION_24012011142 WHERE NOT Type_of_tr = 'D';
++----------------------+
+| Deposit_Transactions |
++----------------------+
+|                    2 |
++----------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:29:19 2025 
+>SELECT COUNT(*) AS May_Transactions FROM TRANSACTION_24012011142 WHERE DATE_FORMAT(Tr_date, '%m') = '05';
++------------------+
+| May_Transactions |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:29:31 2025 
+>SELECT AVG(Amt) AS Average_Amount FROM TRANSACTION_24012011142;
++----------------+
+| Average_Amount |
++----------------+
+|   17000.000000 |
++----------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:29:44 2025 
+>SELECT POWER(4, 4) AS Power_Value FROM DUAL;
++-------------+
+| Power_Value |
++-------------+
+|         256 |
++-------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:29:53 2025 
+>SELECT SQRT(25) AS Square_Root FROM DUAL;
++-------------+
+| Square_Root |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:30:04 2025 
+>SELECT
+    ->     LOWER('Hello World') AS lower_case,
+    ->     UPPER('Hello World') AS upper_case,
+    ->     SUBSTR('Hello World', 7, 5) AS sub_string,
+    ->     LENGTH('Hello World') AS text_length,
+    ->     LTRIM('  Hello World  ') AS left_trim,
+    ->     RTRIM('  Hello World  ') AS right_trim,
+    ->     LPAD('SQL', 8, '*') AS left_pad,
+    ->     RPAD('SQL', 8, '-') AS right_pad
+    -> FROM DUAL;
++-------------+-------------+------------+-------------+---------------+---------------+----------+-----------+
+| lower_case  | upper_case  | sub_string | text_length | left_trim     | right_trim    | left_pad | right_pad |
++-------------+-------------+------------+-------------+---------------+---------------+----------+-----------+
+| hello world | HELLO WORLD | World      |          11 | Hello World   |   Hello World | *****SQL | SQL-----  |
++-------------+-------------+------------+-------------+---------------+---------------+----------+-----------+
+1 row in set (0.00 sec)
+

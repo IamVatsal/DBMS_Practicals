@@ -1,0 +1,279 @@
+
+24012011142_Vatsal [(none)] Sun Aug 24 12:04:02 2025 
+> CREATE DATABASE CAR_24012011142;
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [(none)] Sun Aug 24 12:04:12 2025 
+> USE CAR_24012011142;
+Database changed
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:04:19 2025 
+> CREATE TABLE Cars_24012011142 (
+    ->     car_id VARCHAR(5) PRIMARY KEY,
+    ->     model_name VARCHAR(50),
+    ->     year INT,
+    ->     price DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:04:24 2025 
+> CREATE TABLE Manufacturers_24012011142 (
+    ->     manufacturer_id VARCHAR(5) PRIMARY KEY,
+    ->     name VARCHAR(50),
+    ->     country VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:04:29 2025 
+> CREATE TABLE Production_24012011142 (
+    ->     production_id VARCHAR(5) PRIMARY KEY,
+    ->     car_id VARCHAR(5),
+    ->     manufacturer_id VARCHAR(5),
+    ->     production_date DATE,
+    ->     units_produced INT,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 7
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:04:33 2025 
+> CREATE TABLE Production_24012011142 (
+    ->     production_id VARCHAR(5) PRIMARY KEY,
+    ->     car_id VARCHAR(5),
+    ->     manufacturer_id VARCHAR(5),
+    ->     production_date DATE,
+    ->     units_produced INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:07 2025 
+> INSERT INTO Cars_24012011142 (car_id, model_name, year, price) VALUES
+    -> ('C001', 'Speedster', 2021, 25000),
+    -> ('C002', 'EchoDrive', 2023, 18000),
+    -> ('C003', 'UrbanX', 2022, 22000),
+    -> ('C004', 'FamilyGo', 2020, 17000);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:13 2025 
+> INSERT INTO Manufacturers_24012011142 (manufacturer_id, name, country) VALUES
+    -> ('M01', 'AutoTech', 'Germany'),
+    -> ('M02', 'Green Motors', 'USA'),
+    -> ('M03', 'City Cars', 'Japan'),
+    -> ('M04', 'Family Motors', 'India');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:18 2025 
+> INSERT INTO Production_24012011142 (production_id, car_id, manufacturer_id, production_date, units_produced) VALUES
+    -> ('P001', 'C001', 'M01', '2021-03-10', 150),
+    -> ('P002', 'C002', 'M02', '2023-07-15', 200),
+    -> ('P003', 'C003', 'M03', '2022-11-05', 180),
+    -> ('P004', 'C004', 'M04', '2020-06-20', 120);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:23 2025 
+> SELECT * FROM Cars_24012011142;
++--------+------------+------+----------+
+| car_id | model_name | year | price    |
++--------+------------+------+----------+
+| C001   | Speedster  | 2021 | 25000.00 |
+| C002   | EchoDrive  | 2023 | 18000.00 |
+| C003   | UrbanX     | 2022 | 22000.00 |
+| C004   | FamilyGo   | 2020 | 17000.00 |
++--------+------------+------+----------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:32 2025 
+> SELECT * FROM Cars_24012011142 WHERE year > 2020;
++--------+------------+------+----------+
+| car_id | model_name | year | price    |
++--------+------------+------+----------+
+| C001   | Speedster  | 2021 | 25000.00 |
+| C002   | EchoDrive  | 2023 | 18000.00 |
+| C003   | UrbanX     | 2022 | 22000.00 |
++--------+------------+------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:36 2025 
+> SELECT * FROM Manufacturers_24012011142;
++-----------------+---------------+---------+
+| manufacturer_id | name          | country |
++-----------------+---------------+---------+
+| M01             | AutoTech      | Germany |
+| M02             | Green Motors  | USA     |
+| M03             | City Cars     | Japan   |
+| M04             | Family Motors | India   |
++-----------------+---------------+---------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:40 2025 
+> SELECT name, country FROM Manufacturers_24012011142;
++---------------+---------+
+| name          | country |
++---------------+---------+
+| AutoTech      | Germany |
+| Green Motors  | USA     |
+| City Cars     | Japan   |
+| Family Motors | India   |
++---------------+---------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:44 2025 
+> SELECT * FROM Cars_24012011142;
++--------+------------+------+----------+
+| car_id | model_name | year | price    |
++--------+------------+------+----------+
+| C001   | Speedster  | 2021 | 25000.00 |
+| C002   | EchoDrive  | 2023 | 18000.00 |
+| C003   | UrbanX     | 2022 | 22000.00 |
+| C004   | FamilyGo   | 2020 | 17000.00 |
++--------+------------+------+----------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:52 2025 
+> UPDATE Cars_24012011142 SET price = 19500 WHERE car_id = 'C002';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:05:57 2025 
+> SELECT * FROM Cars_24012011142;
++--------+------------+------+----------+
+| car_id | model_name | year | price    |
++--------+------------+------+----------+
+| C001   | Speedster  | 2021 | 25000.00 |
+| C002   | EchoDrive  | 2023 | 19500.00 |
+| C003   | UrbanX     | 2022 | 22000.00 |
+| C004   | FamilyGo   | 2020 | 17000.00 |
++--------+------------+------+----------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:01 2025 
+> SELECT * FROM Manufacturers_24012011142;
++-----------------+---------------+---------+
+| manufacturer_id | name          | country |
++-----------------+---------------+---------+
+| M01             | AutoTech      | Germany |
+| M02             | Green Motors  | USA     |
+| M03             | City Cars     | Japan   |
+| M04             | Family Motors | India   |
++-----------------+---------------+---------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:09 2025 
+> UPDATE Manufacturers_24012011142 SET name = 'EcoMotors' WHERE manufacturer_id = 'M02';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:14 2025 
+> SELECT * FROM Manufacturers_24012011142;
++-----------------+---------------+---------+
+| manufacturer_id | name          | country |
++-----------------+---------------+---------+
+| M01             | AutoTech      | Germany |
+| M02             | EcoMotors     | USA     |
+| M03             | City Cars     | Japan   |
+| M04             | Family Motors | India   |
++-----------------+---------------+---------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:20 2025 
+> SELECT * FROM Cars_24012011142;
++--------+------------+------+----------+
+| car_id | model_name | year | price    |
++--------+------------+------+----------+
+| C001   | Speedster  | 2021 | 25000.00 |
+| C002   | EchoDrive  | 2023 | 19500.00 |
+| C003   | UrbanX     | 2022 | 22000.00 |
+| C004   | FamilyGo   | 2020 | 17000.00 |
++--------+------------+------+----------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:25 2025 
+> DELETE FROM Cars_24012011142 WHERE car_id = 'C003';
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:31 2025 
+> SELECT * FROM Cars_24012011142;
++--------+------------+------+----------+
+| car_id | model_name | year | price    |
++--------+------------+------+----------+
+| C001   | Speedster  | 2021 | 25000.00 |
+| C002   | EchoDrive  | 2023 | 19500.00 |
+| C004   | FamilyGo   | 2020 | 17000.00 |
++--------+------------+------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:37 2025 
+> SELECT * FROM Production_24012011142;
++---------------+--------+-----------------+-----------------+----------------+
+| production_id | car_id | manufacturer_id | production_date | units_produced |
++---------------+--------+-----------------+-----------------+----------------+
+| P001          | C001   | M01             | 2021-03-10      |            150 |
+| P002          | C002   | M02             | 2023-07-15      |            200 |
+| P003          | C003   | M03             | 2022-11-05      |            180 |
+| P004          | C004   | M04             | 2020-06-20      |            120 |
++---------------+--------+-----------------+-----------------+----------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:46 2025 
+> DELETE from Production_24012011142 WHERE production_id = 'P003';
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:51 2025 
+> SELECT * FROM Production_24012011142;
++---------------+--------+-----------------+-----------------+----------------+
+| production_id | car_id | manufacturer_id | production_date | units_produced |
++---------------+--------+-----------------+-----------------+----------------+
+| P001          | C001   | M01             | 2021-03-10      |            150 |
+| P002          | C002   | M02             | 2023-07-15      |            200 |
+| P004          | C004   | M04             | 2020-06-20      |            120 |
++---------------+--------+-----------------+-----------------+----------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:06:58 2025 
+> SELECT * FROM Production_24012011142;
++---------------+--------+-----------------+-----------------+----------------+
+| production_id | car_id | manufacturer_id | production_date | units_produced |
++---------------+--------+-----------------+-----------------+----------------+
+| P001          | C001   | M01             | 2021-03-10      |            150 |
+| P002          | C002   | M02             | 2023-07-15      |            200 |
+| P004          | C004   | M04             | 2020-06-20      |            120 |
++---------------+--------+-----------------+-----------------+----------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:07:02 2025 
+> DESC Cars_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| car_id     | varchar(5)    | NO   | PRI | NULL    |       |
+| model_name | varchar(50)   | YES  |     | NULL    |       |
+| year       | int           | YES  |     | NULL    |       |
+| price      | decimal(10,2) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:14:53 2025 
+> DESC Manufacturers_24012011142;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| manufacturer_id | varchar(5)  | NO   | PRI | NULL    |       |
+| name            | varchar(50) | YES  |     | NULL    |       |
+| country         | varchar(50) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:14:59 2025 
+> DESC Production_24012011142;
++-----------------+------------+------+-----+---------+-------+
+| Field           | Type       | Null | Key | Default | Extra |
++-----------------+------------+------+-----+---------+-------+
+| production_id   | varchar(5) | NO   | PRI | NULL    |       |
+| car_id          | varchar(5) | YES  |     | NULL    |       |
+| manufacturer_id | varchar(5) | YES  |     | NULL    |       |
+| production_date | date       | YES  |     | NULL    |       |
+| units_produced  | int        | YES  |     | NULL    |       |
++-----------------+------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [CAR_24012011142] Sun Aug 24 12:15:03 2025 
+> Terminal close -- exit!

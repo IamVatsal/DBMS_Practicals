@@ -1,0 +1,335 @@
+
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:49:32 2025 
+>DESC ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
+| address    | varchar(20)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:49:50 2025 
+>ALTER TABLE ACCOUNT_24012011142 DROP COLUMN address;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:50:00 2025 
+>DESC ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:53:22 2025 
+>DESC ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| Name       | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:53:36 2025 
+>ALTER TABLE ACCOUNT_24012011142 RENAME COLUMN Name TO New_name;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:53:42 2025 
+>DESC ACCOUNT_24012011142;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| acc_no     | varchar(5)    | NO   | PRI | NULL    |       |
+| New_name   | varchar(30)   | YES  |     | NULL    |       |
+| City       | varchar(20)   | YES  |     | NULL    |       |
+| Balance    | decimal(10,2) | YES  |     | NULL    |       |
+| loan_taken | varchar(5)    | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:53:45 2025 
+>SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+
+| acc_no | New_name      | City      | Balance   | loan_taken |
++--------+---------------+-----------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        |
++--------+---------------+-----------+-----------+------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:20 2025 
+>SELECT * FROM ACCOUNT_24012011142 WHERE City NOT IN ('Ahmedabad', 'Vadodara');
++--------+---------------+---------+-----------+------------+
+| acc_no | New_name      | City    | Balance   | loan_taken |
++--------+---------------+---------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana |  50000.00 | YES        |
+| A005   | Kothari Nehal | Kherva  | 100000.00 | YES        |
++--------+---------------+---------+-----------+------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:23 2025 
+>SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+
+| acc_no | New_name      | City      | Balance   | loan_taken |
++--------+---------------+-----------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        |
++--------+---------------+-----------+-----------+------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:28 2025 
+>SELECT * FROM ACCOUNT_24012011142 WHERE acc_no = 'A001' AND City = 'Mehsana';
++--------+-------------+---------+----------+------------+
+| acc_no | New_name    | City    | Balance  | loan_taken |
++--------+-------------+---------+----------+------------+
+| A001   | Patel Hiren | Mehsana | 50000.00 | YES        |
++--------+-------------+---------+----------+------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:32 2025 
+>SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+
+| acc_no | New_name      | City      | Balance   | loan_taken |
++--------+---------------+-----------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        |
++--------+---------------+-----------+-----------+------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:36 2025 
+>SELECT * FROM ACCOUNT_24012011142 WHERE acc_no = 'A001' OR City = 'Mehsana';
++--------+--------------+---------+----------+------------+
+| acc_no | New_name     | City    | Balance  | loan_taken |
++--------+--------------+---------+----------+------------+
+| A001   | Patel Hiren  | Mehsana | 50000.00 | YES        |
+| A002   | Patel Ramesh | Mehsana | 50000.00 | YES        |
++--------+--------------+---------+----------+------------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:40 2025 
+>SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+
+| acc_no | New_name      | City      | Balance   | loan_taken |
++--------+---------------+-----------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        |
++--------+---------------+-----------+-----------+------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:45 2025 
+>SELECT * FROM ACCOUNT_24012011142 WHERE Balance BETWEEN 75000 AND 100000;
++--------+---------------+-----------+-----------+------------+
+| acc_no | New_name      | City      | Balance   | loan_taken |
++--------+---------------+-----------+-----------+------------+
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        |
++--------+---------------+-----------+-----------+------------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:53 2025 
+>SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+
+| acc_no | New_name      | City      | Balance   | loan_taken |
++--------+---------------+-----------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        |
++--------+---------------+-----------+-----------+------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:54:57 2025 
+>SELECT * FROM ACCOUNT_24012011142 WHERE Balance NOT BETWEEN 50000 AND 75000;
++--------+---------------+--------+-----------+------------+
+| acc_no | New_name      | City   | Balance   | loan_taken |
++--------+---------------+--------+-----------+------------+
+| A005   | Kothari Nehal | Kherva | 100000.00 | YES        |
++--------+---------------+--------+-----------+------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:03 2025 
+>SELECT * FROM INSTALLMENT_24012011142;
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:08 2025 
+>SELECT * FROM INSTALLMENT_24012011142 WHERE Amount IN (5000, 15000, 30000);
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
++---------+----------------+------------------+----------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:17 2025 
+>SELECT * FROM INSTALLMENT_24012011142;
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:24 2025 
+>SELECT * FROM INSTALLMENT_24012011142 WHERE Amount NOT IN (5000, 15000, 30000);
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:29 2025 
+>SELECT * FROM ACCOUNT_24012011142;
++--------+---------------+-----------+-----------+------------+
+| acc_no | New_name      | City      | Balance   | loan_taken |
++--------+---------------+-----------+-----------+------------+
+| A001   | Patel Hiren   | Mehsana   |  50000.00 | YES        |
+| A002   | Patel Ramesh  | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik   | Ahmedabad |  75000.00 | NO         |
+| A005   | Kothari Nehal | Kherva    | 100000.00 | YES        |
++--------+---------------+-----------+-----------+------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:36 2025 
+>SELECT * FROM ACCOUNT_24012011142 WHERE New_name LIKE 'D%';
++--------+-------------+-----------+----------+------------+
+| acc_no | New_name    | City      | Balance  | loan_taken |
++--------+-------------+-----------+----------+------------+
+| A003   | Dave Hardik | Ahmedabad | 75000.00 | NO         |
++--------+-------------+-----------+----------+------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:42 2025 
+>SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2025-09-08 23:55:46 |
++---------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:46 2025 
+>SELECT SYSDATE() + INTERVAL 15 DAY;
++-----------------------------+
+| SYSDATE() + INTERVAL 15 DAY |
++-----------------------------+
+| 2025-09-23 23:55:52         |
++-----------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:52 2025 
+>SELECT SYSDATE() - INTERVAL 20 DAY;
++-----------------------------+
+| SYSDATE() - INTERVAL 20 DAY |
++-----------------------------+
+| 2025-08-19 23:55:58         |
++-----------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:55:58 2025 
+>SELECT
+    ->     5 * 5 AS Multiplication,
+    ->     34 + 34 AS Addition,
+    ->     LENGTH('uvpce') AS StringLength,
+    ->     MONTHNAME(CURDATE()) AS MonthName
+    -> FROM DUAL;
++----------------+----------+--------------+-----------+
+| Multiplication | Addition | StringLength | MonthName |
++----------------+----------+--------------+-----------+
+|             25 |       68 |            5 | September |
++----------------+----------+--------------+-----------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Mon Sep  8 23:56:04 2025 
+>SET SQL_SAFE_UPDATES = 0;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:03:38 2025 
+>SELECT
+    ->     SYSDATE() AS SystemDate,
+    ->     CURDATE() AS CurrentDate,
+    ->     NOW() AS NowDateTime
+    -> FROM DUAL;
++---------------------+-------------+---------------------+
+| SystemDate          | CurrentDate | NowDateTime         |
++---------------------+-------------+---------------------+
+| 2025-09-09 00:18:41 | 2025-09-09  | 2025-09-09 00:18:41 |
++---------------------+-------------+---------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:18:41 2025 
+>SELECT SYSDATE() + INTERVAL 15 DAY AS DateAfter15Days;
++---------------------+
+| DateAfter15Days     |
++---------------------+
+| 2025-09-24 00:19:43 |
++---------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:19:43 2025 
+>SELECT DATE_ADD(SYSDATE(), INTERVAL 15 DAY) AS DateAfter15Days_Alt;
++---------------------+
+| DateAfter15Days_Alt |
++---------------------+
+| 2025-09-24 00:19:52 |
++---------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:19:52 2025 
+>SELECT SYSDATE() - INTERVAL 20 DAY AS DateBefore20Days;
++---------------------+
+| DateBefore20Days    |
++---------------------+
+| 2025-08-20 00:19:58 |
++---------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:19:58 2025 
+>SELECT DATE_SUB(SYSDATE(), INTERVAL 20 DAY) AS DateBefore20Days_Alt;
++----------------------+
+| DateBefore20Days_Alt |
++----------------------+
+| 2025-08-20 00:20:02  |
++----------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:25:18 2025 
+>system cls;
+24012011142_Vatsal [practical_1_24012011142] Tue Sep  9 00:25:25 2025 
+>Terminal close -- exit!
