@@ -1,0 +1,369 @@
+
+24012011142_Vatsal [(none)] Sun Sep 14 23:57:06 2025 
+>CREATE DATABASE Practical_3_24012011142;
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [(none)] Sun Sep 14 23:57:21 2025 
+>USE Practical_3_24012011142;
+Database changed
+
+24012011142_Vatsal [Practical_3_24012011142] Sun Sep 14 23:57:30 2025 
+>CREATE TABLE Account_24012011142 (
+    ->     Acc_no VARCHAR(5) PRIMARY KEY,
+    ->     Name VARCHAR(30) NOT NULL,
+    ->     City VARCHAR(20) NOT NULL,
+    ->     Balance DECIMAL(10,2) CHECK (Balance >= 500),
+    ->     loan_taken VARCHAR(3) CHECK (loan_taken IN ('YES', 'NO'))
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Sun Sep 14 23:57:44 2025 
+>INSERT INTO Account_24012011142 (Acc_no, Name, City, Balance, loan_taken) VALUES
+    -> ('A001', 'Patel Jigar', 'Mehsana', 50000.00, 'YES'),
+    -> ('A002', 'Patel Ramesh', 'Mehsana', 50000.00, 'YES'),
+    -> ('A003', 'Dave Hardik', 'Ahmedabad', 75000.00, 'NO'),
+    -> ('A004', 'Soni Hetal', 'Ahmedabad', 100000.00, 'NO'),
+    -> ('A005', 'Sony Atul', 'Vadodara', 100000.00, 'YES');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Sun Sep 14 23:58:17 2025 
+>INSERT INTO Account_24012011142 (Acc_no, Name, City, Balance, loan_taken) VALUES
+    -> ('A005', 'Patel Arun', 'Surat', 4000.00, 'NO');
+ERROR 1062 (23000): Duplicate entry 'A005' for key 'account_24012011142.PRIMARY'
+24012011142_Vatsal [Practical_3_24012011142] Sun Sep 14 23:58:45 2025 
+>INSERT INTO Account_24012011142 (Acc_no, Name, City, Balance, loan_taken) VALUES
+    -> ('A006', NULL, 'Baroda', 5000.00, 'NO');
+ERROR 1048 (23000): Column 'Name' cannot be null
+24012011142_Vatsal [Practical_3_24012011142] Sun Sep 14 23:58:54 2025 
+>INSERT INTO Account_24012011142 (Acc_no, Name, City, Balance, loan_taken) VALUES
+    -> ('A007', 'Patel Rachit', NULL, 5000.00, 'NO');
+ERROR 1048 (23000): Column 'City' cannot be null
+24012011142_Vatsal [Practical_3_24012011142] Sun Sep 14 23:59:09 2025 
+>INSERT INTO Account_24012011142 (Acc_no, Name, City, Balance, loan_taken) VALUES
+    -> ('A008', 'Patel Vir', 'Mehsana', 400.00, 'NO');
+ERROR 3819 (HY000): Check constraint 'account_24012011142_chk_1' is violated.
+24012011142_Vatsal [Practical_3_24012011142] Sun Sep 14 23:59:19 2025 
+>INSERT INTO Account_24012011142 (Acc_no, Name, City, Balance, loan_taken) VALUES
+    -> ('A009', 'Patel Vyom', 'Surat', 1000.00, 'ABC');
+ERROR 3819 (HY000): Check constraint 'account_24012011142_chk_2' is violated.
+24012011142_Vatsal [Practical_3_24012011142] Sun Sep 14 23:59:31 2025 
+>system cls
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:08:55 2025 
+>CREATE TABLE Loan_24012011142(
+    ->     Loan_no VARCHAR(5) CHECK (Loan_no LIKE 'L%'),
+    ->     Acc_no VARCHAR(5),
+    ->     Loan_amt DECIMAL(10,2) NOT NULL,
+    ->     interest_rate DECIMAL(5,2) NOT NULL,
+    ->     Loan_date DATE,
+    ->     Remaining_amt DECIMAL(10,2),
+    ->     PRIMARY KEY (Loan_no),
+    ->     FOREIGN KEY (Acc_no) REFERENCES Account_24012011142(Acc_no),
+    ->     CHECK (Remaining_amt <= Loan_amt)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:11:38 2025 
+>
+
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:12:09 2025 
+>INSERT INTO Loan_24012011142 (Loan_no, Acc_no, Loan_amt, interest_rate, Loan_date, Remaining_amt) VALUES
+    -> ('L001', 'A001', 100000.00, 7.0, '2004-01-01', 75000.00);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:12:42 2025 
+>INSERT INTO Loan_24012011142 (Loan_no, Acc_no, Loan_amt, interest_rate, Loan_date, Remaining_amt) VALUES
+    -> ('L002', 'A002', 100000.00, 9.0, '2004-05-18', 150000.00);
+ERROR 3819 (HY000): Check constraint 'loan_24012011142_chk_2' is violated.
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:12:53 2025 
+>INSERT INTO Loan_24012011142 (Loan_no, Acc_no, Loan_amt, interest_rate, Loan_date, Remaining_amt) VALUES
+    -> ('L003', 'A005', 100000.00, 11.0, '2004-06-15', 300000.00);
+ERROR 3819 (HY000): Check constraint 'loan_24012011142_chk_2' is violated.
+
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:13:03 2025 
+>
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:13:16 2025 
+>CREATE TABLE Installment_24012011142(
+    ->     Loan_no VARCHAR(5),
+    ->     Inst_no VARCHAR(5) CHECK (Inst_no LIKE 'I%'),
+    ->     Idate DATE NOT NULL,
+    ->     Amount DECIMAL(10,2) NOT NULL,
+    ->     FOREIGN KEY (Loan_no) REFERENCES Loan_24012011142(Loan_no)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:13:21 2025 
+>INSERT INTO Installment_24012011142 (Loan_no, Inst_no, Idate, Amount) VALUES
+    -> ('L001', 'I001', '2004-02-02', 15000.00);
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:13:32 2025 
+>INSERT INTO Installment_24012011142 (Loan_no, Inst_no, Idate, Amount) VALUES
+    -> ('L002', 'I002', '2004-06-18', 20000.00);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`practical_3_24012011142`.`installment_24012011142`, 
+CONSTRAINT `installment_24012011142_ibfk_1` FOREIGN KEY (`Loan_no`) REFERENCES `loan_24012011142` (`Loan_no`))
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:13:41 2025 
+>INSERT INTO Installment_24012011142 (Loan_no, Inst_no, Idate, Amount) VALUES
+    -> ('L003', 'I003', '2004-07-15', 20000.00);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`practical_3_24012011142`.`installment_24012011142`, 
+CONSTRAINT `installment_24012011142_ibfk_1` FOREIGN KEY (`Loan_no`) REFERENCES `loan_24012011142` (`Loan_no`))
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:13:51 2025 
+>system cls
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:17:05 2025 
+>system cls
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:17:36 2025 
+>CREATE TABLE Student_24012011142(
+    ->     Rollno VARCHAR(6),
+    ->     Name VARCHAR(20),
+    ->     Branch VARCHAR(6),
+    ->     Address VARCHAR(20),
+    ->     Mobile_Number DECIMAL(10)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:17:44 2025 
+>CREATE TABLE Student_24012011142(
+    ->     Rollno VARCHAR(6),
+    ->     Name VARCHAR(20),
+    ->     Branch VARCHAR(6),
+    ->     Address VARCHAR(20),
+    ->     Mobile_Number DECIMAL(10)
+    -> );
+ERROR 1050 (42S01): Table 'student_24012011142' already exists
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:18 2025 
+>DESC Student_24012011142;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| Rollno        | varchar(6)    | YES  |     | NULL    |       |
+| Name          | varchar(20)   | YES  |     | NULL    |       |
+| Branch        | varchar(6)    | YES  |     | NULL    |       |
+| Address       | varchar(20)   | YES  |     | NULL    |       |
+| Mobile_Number | decimal(10,0) | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:21 2025 
+>ALTER TABLE Student_24012011142
+    -> ADD CONSTRAINT PRIM_rollno PRIMARY KEY (Rollno);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:25 2025 
+>DESC Student_24012011142;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| Rollno        | varchar(6)    | NO   | PRI | NULL    |       |
+| Name          | varchar(20)   | YES  |     | NULL    |       |
+| Branch        | varchar(6)    | YES  |     | NULL    |       |
+| Address       | varchar(20)   | YES  |     | NULL    |       |
+| Mobile_Number | decimal(10,0) | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:28 2025 
+>ALTER TABLE Student_24012011142
+    -> MODIFY Name VARCHAR(20) NOT NULL;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:36 2025 
+>DESC Student_24012011142;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| Rollno        | varchar(6)    | NO   | PRI | NULL    |       |
+| Name          | varchar(20)   | NO   |     | NULL    |       |
+| Branch        | varchar(6)    | YES  |     | NULL    |       |
+| Address       | varchar(20)   | YES  |     | NULL    |       |
+| Mobile_Number | decimal(10,0) | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:37 2025 
+>ALTER TABLE Student_24012011142
+    -> MODIFY Branch VARCHAR(6) NOT NULL;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:50 2025 
+>DESC Student_24012011142;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| Rollno        | varchar(6)    | NO   | PRI | NULL    |       |
+| Name          | varchar(20)   | NO   |     | NULL    |       |
+| Branch        | varchar(6)    | NO   |     | NULL    |       |
+| Address       | varchar(20)   | YES  |     | NULL    |       |
+| Mobile_Number | decimal(10,0) | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:51 2025 
+>ALTER TABLE Student_24012011142
+    -> ADD CONSTRAINT CHK_cap CHECK (UPPER(LEFT(Name,1)) = LEFT(Name,1));
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:56 2025 
+>DESC Student_24012011142;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| Rollno        | varchar(6)    | NO   | PRI | NULL    |       |
+| Name          | varchar(20)   | NO   |     | NULL    |       |
+| Branch        | varchar(6)    | NO   |     | NULL    |       |
+| Address       | varchar(20)   | YES  |     | NULL    |       |
+| Mobile_Number | decimal(10,0) | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:19:57 2025 
+>ALTER TABLE Student_24012011142
+    -> ADD CONSTRAINT UNI_mobilenumber UNIQUE (Mobile_Number);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:20:10 2025 
+>DESC Student_24012011142;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| Rollno        | varchar(6)    | NO   | PRI | NULL    |       |
+| Name          | varchar(20)   | NO   |     | NULL    |       |
+| Branch        | varchar(6)    | NO   |     | NULL    |       |
+| Address       | varchar(20)   | YES  |     | NULL    |       |
+| Mobile_Number | decimal(10,0) | YES  | UNI | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:20:11 2025 
+>ALTER TABLE Student_24012011142
+    -> DROP CONSTRAINT CHK_cap;
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:20:16 2025 
+>DESC Student_24012011142;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| Rollno        | varchar(6)    | NO   | PRI | NULL    |       |
+| Name          | varchar(20)   | NO   |     | NULL    |       |
+| Branch        | varchar(6)    | NO   |     | NULL    |       |
+| Address       | varchar(20)   | YES  |     | NULL    |       |
+| Mobile_Number | decimal(10,0) | YES  | UNI | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:20:17 2025 
+>CREATE TABLE Register_24012011142(
+    ->     Rollno VARCHAR(6),
+    ->     Name VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:21:24 2025 
+>DESC Register_24012011142;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Rollno | varchar(6)  | YES  |     | NULL    |       |
+| Name   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:21:25 2025 
+>ALTER TABLE Register_24012011142
+    -> ADD CONSTRAINT FOR_rollno FOREIGN KEY (Rollno) REFERENCES Student_24012011142(Rollno);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:21:30 2025 
+>DESC Register_24012011142;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Rollno | varchar(6)  | YES  | MUL | NULL    |       |
+| Name   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:21:31 2025 
+>ALTER TABLE Register_24012011142
+    -> ADD CONSTRAINT CHK_cap CHECK (UPPER(LEFT(Name,1)) = LEFT(Name,1));
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:21:38 2025 
+>DESC Register_24012011142;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Rollno | varchar(6)  | YES  | MUL | NULL    |       |
+| Name   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:21:53 2025 
+>ALTER TABLE Register_24012011142
+    -> MODIFY Name VARCHAR(20) NOT NULL;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:23:07 2025 
+>DESC Register_24012011142;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Rollno | varchar(6)  | YES  | MUL | NULL    |       |
+| Name   | varchar(20) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:23:09 2025 
+>ALTER TABLE Register_24012011142
+    -> DROP CONSTRAINT FOR_rollno;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:23:29 2025 
+>DESC Register_24012011142;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Rollno | varchar(6)  | YES  | MUL | NULL    |       |
+| Name   | varchar(20) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:23:40 2025 
+>ALTER TABLE Register_24012011142
+    -> MODIFY Name VARCHAR(20) NULL;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:24:45 2025 
+>DESC Register_24012011142;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Rollno | varchar(6)  | YES  | MUL | NULL    |       |
+| Name   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_3_24012011142] Mon Sep 15 00:24:47 2025 
+>Terminal close -- exit!
