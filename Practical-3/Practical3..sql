@@ -143,7 +143,7 @@ DESC Register_24012011142;
 CREATE TABLE Car_24012011142 (
     CarId VARCHAR(5),
     ModelName VARCHAR(30) NOT NULL,
-    LaunchYear INT CHECK (LaunchYear >= 1990 AND LaunchYear <= YEAR(CURDATE())),
+    LaunchYear INT CHECK (LaunchYear >= 1990 AND LaunchYear <= 2025),
     PRIMARY KEY (CarId)
 );
 

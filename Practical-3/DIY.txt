@@ -1,0 +1,32 @@
+
+
+24012011142_Vatsal [practical_3_24012011142] Sat Sep 20 21:21:14 2025 
+>CREATE TABLE Car_24012011142 (
+    ->     CarId VARCHAR(5),
+    ->     ModelName VARCHAR(30) NOT NULL,
+    ->     LaunchYear INT CHECK (LaunchYear >= 1990 AND LaunchYear <= 2025),
+    ->     PRIMARY KEY (CarId)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [practical_3_24012011142] Sat Sep 20 21:22:24 2025 
+>CREATE TABLE Customer_24012011142 (
+    ->     Cust_Id VARCHAR(5),
+    ->     Email VARCHAR(50) UNIQUE,
+    ->     PhoneNumber VARCHAR(15) NOT NULL,
+    ->     PRIMARY KEY (Cust_Id)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+24012011142_Vatsal [practical_3_24012011142] Sat Sep 20 21:22:28 2025 
+>CREATE TABLE Order_24012011142 (
+    ->     OrderId VARCHAR(5) PRIMARY KEY,
+    ->     CustomerId VARCHAR(5),
+    ->     CarId VARCHAR(5),
+    ->     Quantity INT CHECK (Quantity > 0),
+    ->     OrderDate DATE NOT NULL,
+    ->     FOREIGN KEY (CustomerId) REFERENCES Customer_24012011142(Cust_Id),
+    ->     FOREIGN KEY (CarId) REFERENCES Car_24012011142(CarId)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
