@@ -1,0 +1,305 @@
+24012011142_Vatsal [(none)] Mon Sep 29 17:13:45 2025 
+>CREATE DATABASE Practical_4_24012011142;
+Query OK, 1 row affected (0.02 sec)
+
+24012011142_Vatsal [(none)] Mon Sep 29 17:13:53 2025 
+>
+24012011142_Vatsal [(none)] Mon Sep 29 17:13:53 2025 
+>USE Practical_4_24012011142;
+Database changed
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:13:54 2025 
+>CREATE TABLE ACCOUNT_24012011142 (
+    ->     acc_no VARCHAR(5) PRIMARY KEY,
+    ->     Name VARCHAR(30),
+    ->     City VARCHAR(20),
+    ->     Balance DECIMAL(10, 2),
+    ->     loan_taken VARCHAR(5)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:01 2025 
+>INSERT INTO ACCOUNT_24012011142 (acc_no, Name, City, Balance, loan_taken) VALUES
+    -> ('A001', 'Patel Jigar', 'Mehsana', 50000, 'YES'),
+    -> ('A002', 'Patel Ramesh', 'Mehsana', 50000, 'YES'),
+    -> ('A003', 'Dave Hardik', 'Ahmedabad', 75000, 'NO'),
+    -> ('A004', 'Soni Hetal', 'Ahmedabad', 100000, 'NO'),
+    -> ('A005', 'Sony Atul', 'Vadodara', 100000, 'YES');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:07 2025 
+>CREATE TABLE LOAN_24012011142 (
+    ->     loan_no VARCHAR(5) PRIMARY KEY,
+    ->     acc_no VARCHAR(5),
+    ->     loan_amt DECIMAL(10, 2),
+    ->     interest_rate DECIMAL(5, 2),
+    ->     loan_date DATE,
+    ->     remaining_loan DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:14 2025 
+>INSERT INTO LOAN_24012011142 (loan_no, acc_no, loan_amt, interest_rate, loan_date, remaining_loan) VALUES
+    -> ('L001', 'A001', 100000, 7, '2004-01-01', 75000),
+    -> ('L002', 'A002', 300000, 9, '2004-05-18', 150000),
+    -> ('L003', 'A005', 500000, 11, '2004-06-15', 300000);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:19 2025 
+>CREATE TABLE INSTALLMENT_24012011142 (
+    ->     loan_no VARCHAR(5),
+    ->     installment_no VARCHAR(5) PRIMARY KEY,
+    ->     installment_date DATE,
+    ->     Amount DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:24 2025 
+>INSERT INTO INSTALLMENT_24012011142 (loan_no, installment_no, installment_date, Amount) VALUES
+    -> ('L001', 'I001', '2004-02-02', 15000),
+    -> ('L002', 'I002', '2004-06-18', 20000),
+    -> ('L003', 'I003', '2004-07-15', 20000);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:29 2025 
+>CREATE TABLE TRANSACTION_24012011142 (
+    ->     Acc_no VARCHAR(5),
+    ->     Tr_date DATE,
+    ->     Amt DECIMAL(10, 2),
+    ->     Type_of_tr CHAR(1),
+    ->     Mode_of_pay VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:40 2025 
+>
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:40 2025 
+>INSERT INTO TRANSACTION_24012011142 (Acc_no, Tr_date, Amt, Type_of_tr, Mode_of_pay) VALUES 
+    -> ('A001', '2021-05-01', 10000.00, 'D', 'Cash'),
+    -> ('A002', '2021-07-02', 5000.00, 'W', 'Cheque'),
+    -> ('A003', '2021-08-03', 25000.00, 'D', 'Cheque'),
+    -> ('A004', '2021-05-04', 30000.00, 'D', 'Cheque'),
+    -> ('A005', '2021-10-05', 15000.00, 'W', 'Cash');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:40 2025 
+>system cls
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:14:58 2025 
+>SELECT City, SUM(Balance) AS total_balance
+    -> FROM ACCOUNT_24012011142
+    -> GROUP BY City;
++-----------+---------------+
+| City      | total_balance |
++-----------+---------------+
+| Mehsana   |     100000.00 |
+| Ahmedabad |     175000.00 |
+| Vadodara  |     100000.00 |
++-----------+---------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:05 2025 
+>SELECT City, COUNT(*) AS total_accounts
+    -> FROM ACCOUNT_24012011142
+    -> GROUP BY City
+    -> ORDER BY total_accounts ASC;
++-----------+----------------+
+| City      | total_accounts |
++-----------+----------------+
+| Vadodara  |              1 |
+| Mehsana   |              2 |
+| Ahmedabad |              2 |
++-----------+----------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:11 2025 
+>SELECT loan_taken, SUM(Balance) AS total_balance
+    -> FROM ACCOUNT_24012011142
+    -> GROUP BY loan_taken
+    -> HAVING loan_taken = 'NO';
++------------+---------------+
+| loan_taken | total_balance |
++------------+---------------+
+| NO         |     175000.00 |
++------------+---------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:16 2025 
+>SELECT a.*
+    -> FROM ACCOUNT_24012011142 a
+    -> JOIN LOAN_24012011142 l ON a.acc_no = l.acc_no
+    -> WHERE a.Balance = l.loan_amt;
+Empty set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:23 2025 
+>SELECT l.acc_no, i.installment_no, l.loan_amt, i.installment_date
+    -> FROM LOAN_24012011142 l
+    -> JOIN INSTALLMENT_24012011142 i ON l.loan_no = i.loan_no
+    -> WHERE l.loan_no = 'L001';
++--------+----------------+-----------+------------------+
+| acc_no | installment_no | loan_amt  | installment_date |
++--------+----------------+-----------+------------------+
+| A001   | I001           | 100000.00 | 2004-02-02       |
++--------+----------------+-----------+------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:31 2025 
+>SELECT a.acc_no, a.City, l.remaining_loan, l.loan_date, l.loan_no
+    -> FROM ACCOUNT_24012011142 a
+    -> LEFT JOIN LOAN_24012011142 l ON a.acc_no = l.acc_no;
++--------+-----------+----------------+------------+---------+
+| acc_no | City      | remaining_loan | loan_date  | loan_no |
++--------+-----------+----------------+------------+---------+
+| A001   | Mehsana   |       75000.00 | 2004-01-01 | L001    |
+| A002   | Mehsana   |      150000.00 | 2004-05-18 | L002    |
+| A003   | Ahmedabad |           NULL | NULL       | NULL    |
+| A004   | Ahmedabad |           NULL | NULL       | NULL    |
+| A005   | Vadodara  |      300000.00 | 2004-06-15 | L003    |
++--------+-----------+----------------+------------+---------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:37 2025 
+>SELECT l.loan_no, l.interest_rate, t.Tr_date, t.Type_of_tr
+    -> FROM LOAN_24012011142 l
+    -> RIGHT JOIN TRANSACTION_24012011142 t ON l.acc_no = t.Acc_no;
++---------+---------------+------------+------------+
+| loan_no | interest_rate | Tr_date    | Type_of_tr |
++---------+---------------+------------+------------+
+| L001    |          7.00 | 2021-05-01 | D          |
+| L002    |          9.00 | 2021-07-02 | W          |
+| NULL    |          NULL | 2021-08-03 | D          |
+| NULL    |          NULL | 2021-05-04 | D          |
+| L003    |         11.00 | 2021-10-05 | W          |
++---------+---------------+------------+------------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:46 2025 
+>SELECT t.Amt, a.Name, a.acc_no, t.Mode_of_pay
+    -> FROM TRANSACTION_24012011142 t
+    -> JOIN ACCOUNT_24012011142 a ON t.Acc_no = a.acc_no
+    -> WHERE t.Mode_of_pay = 'Cheque';
++----------+--------------+--------+-------------+
+| Amt      | Name         | acc_no | Mode_of_pay |
++----------+--------------+--------+-------------+
+|  5000.00 | Patel Ramesh | A002   | Cheque      |
+| 25000.00 | Dave Hardik  | A003   | Cheque      |
+| 30000.00 | Soni Hetal   | A004   | Cheque      |
++----------+--------------+--------+-------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:52 2025 
+>SELECT l.loan_amt, t.Amt AS transaction_amt, t.Mode_of_pay
+    -> FROM LOAN_24012011142 l
+    -> FULL OUTER JOIN TRANSACTION_24012011142 t
+    -> ON l.acc_no = t.Acc_no
+    -> WHERE MONTH(l.loan_date) = 5 OR MONTH(t.Tr_date) = 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FULL OUTER JOIN TRANSACTION_24012011142 t
+ON l.acc_no = t.Acc_no
+WHERE MONTH(l.l' at line 3
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:15:59 2025 
+>SELECT a1.Name, a1.Balance
+    -> FROM ACCOUNT_24012011142 a1
+    -> JOIN ACCOUNT_24012011142 a2 ON a2.Name = 'Dave Hardik'
+    -> WHERE a1.Balance > a2.Balance;
++------------+-----------+
+| Name       | Balance   |
++------------+-----------+
+| Soni Hetal | 100000.00 |
+| Sony Atul  | 100000.00 |
++------------+-----------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:16:14 2025 
+>SELECT *
+    -> FROM ACCOUNT_24012011142
+    -> WHERE Balance < (SELECT AVG(Balance) FROM ACCOUNT_24012011142);
++--------+--------------+---------+----------+------------+
+| acc_no | Name         | City    | Balance  | loan_taken |
++--------+--------------+---------+----------+------------+
+| A001   | Patel Jigar  | Mehsana | 50000.00 | YES        |
+| A002   | Patel Ramesh | Mehsana | 50000.00 | YES        |
++--------+--------------+---------+----------+------------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:16:29 2025 
+>SELECT *
+    -> FROM INSTALLMENT_24012011142
+    -> WHERE Amount > (SELECT MIN(Amt) FROM TRANSACTION_24012011142);
++---------+----------------+------------------+----------+
+| loan_no | installment_no | installment_date | Amount   |
++---------+----------------+------------------+----------+
+| L001    | I001           | 2004-02-02       | 15000.00 |
+| L002    | I002           | 2004-06-18       | 20000.00 |
+| L003    | I003           | 2004-07-15       | 20000.00 |
++---------+----------------+------------------+----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:16:35 2025 
+>SELECT 
+    ->     (SELECT SUM(Amount) FROM INSTALLMENT_24012011142) AS total_installments,
+    ->     (SELECT SUM(Amt) FROM TRANSACTION_24012011142) AS total_transactions;
++--------------------+--------------------+
+| total_installments | total_transactions |
++--------------------+--------------------+
+|           55000.00 |           85000.00 |
++--------------------+--------------------+
+1 row in set (0.00 sec)
+
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:16:52 2025 
+>SELECT *
+    -> FROM ACCOUNT_24012011142
+    -> ORDER BY acc_no DESC
+    -> LIMIT 3;
++--------+-------------+-----------+-----------+------------+
+| acc_no | Name        | City      | Balance   | loan_taken |
++--------+-------------+-----------+-----------+------------+
+| A005   | Sony Atul   | Vadodara  | 100000.00 | YES        |
+| A004   | Soni Hetal  | Ahmedabad | 100000.00 | NO         |
+| A003   | Dave Hardik | Ahmedabad |  75000.00 | NO         |
++--------+-------------+-----------+-----------+------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:16:58 2025 
+>SELECT *
+    -> FROM ACCOUNT_24012011142
+    -> ORDER BY acc_no
+    -> LIMIT 4 OFFSET 1;
++--------+--------------+-----------+-----------+------------+
+| acc_no | Name         | City      | Balance   | loan_taken |
++--------+--------------+-----------+-----------+------------+
+| A002   | Patel Ramesh | Mehsana   |  50000.00 | YES        |
+| A003   | Dave Hardik  | Ahmedabad |  75000.00 | NO         |
+| A004   | Soni Hetal   | Ahmedabad | 100000.00 | NO         |
+| A005   | Sony Atul    | Vadodara  | 100000.00 | YES        |
++--------+--------------+-----------+-----------+------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:17:04 2025 
+>SELECT l.loan_amt, NULL AS transaction_amt, NULL AS mode_of_pay
+    -> FROM LOAN_24012011142 l
+    -> WHERE MONTH(l.loan_date) = 5
+    -> 
+    -> UNION
+    -> 
+    -> SELECT NULL AS loan_amt, t.Amt AS transaction_amt, t.Mode_of_pay
+    -> FROM TRANSACTION_24012011142 t
+    -> WHERE MONTH(t.Tr_date) = 5;
++-----------+-----------------+-------------+
+| loan_amt  | transaction_amt | mode_of_pay |
++-----------+-----------------+-------------+
+| 300000.00 |            NULL | NULL        |
+|      NULL |        10000.00 | Cash        |
+|      NULL |        30000.00 | Cheque      |
++-----------+-----------------+-------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:29:06 2025 
+>^C
+24012011142_Vatsal [Practical_4_24012011142] Mon Sep 29 17:31:51 2025 
+>exit
