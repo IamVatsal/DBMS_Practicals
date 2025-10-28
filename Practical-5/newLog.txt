@@ -1,0 +1,112 @@
+\24012011142_Vatsal [(none)] Fri Oct  3 19:31:19 2025 
+>use Practical_5_24012011142;
+Database changed
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:31:48 2025 
+>SELECT '=== QUERY 7a: Orders on Oct 3-4, 2020 (BETWEEN) ===' AS Query_Description;
++-----------------------------------------------------+
+| Query_Description                                   |
++-----------------------------------------------------+
+| === QUERY 7a: Orders on Oct 3-4, 2020 (BETWEEN) === |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:33:38 2025 
+>SELECT * FROM order_info WHERE odate BETWEEN '2020-10-03' AND '2020-10-04';
+Empty set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:33:47 2025 
+>SELECT * FROM order_info WHERE odate BETWEEN '2020-03-10' AND '2020-03-10';
++-------+---------+------------+-------+-------+
+| onum  | amt     | odate      | cnum  | snum  |
++-------+---------+------------+-------+-------+
+| o3001 |   18.69 | 2020-03-10 | c2008 | s1007 |
+| o3003 |  767.19 | 2020-03-10 | c2001 | s1001 |
+| o3006 | 1098.16 | 2020-03-10 | c2008 | s1007 |
++-------+---------+------------+-------+-------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:37:02 2025 
+>SELECT '=== QUERY 7b: Orders on Oct 3-4, 2020 (OR) ===' AS Query_Description;
++------------------------------------------------+
+| Query_Description                              |
++------------------------------------------------+
+| === QUERY 7b: Orders on Oct 3-4, 2020 (OR) === |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:37:32 2025 
+>SELECT * FROM order_info 
+    -> WHERE odate = '2020-10-03' OR odate = '2020-10-04';
+Empty set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:37:59 2025 
+>SELECT * FROM order_info 
+    -> WHERE odate = '2020-04-10' OR odate = '2020-05-04';
++-------+---------+------------+-------+-------+
+| onum  | amt     | odate      | cnum  | snum  |
++-------+---------+------------+-------+-------+
+| o3007 |   75.75 | 2020-04-10 | c2004 | s1002 |
+| o3009 | 1713.23 | 2020-04-10 | c2002 | s1003 |
++-------+---------+------------+-------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:40:47 2025 
+>SELECT '=== QUERY 8: Orders without zeros or nulls in amount ===' AS Query_Description;
++----------------------------------------------------------+
+| Query_Description                                        |
++----------------------------------------------------------+
+| === QUERY 8: Orders without zeros or nulls in amount === |
++----------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:41:34 2025 
+>SELECT * FROM order_info WHERE amt IS NOT NULL AND amt != 0;
++-------+---------+------------+-------+-------+
+| onum  | amt     | odate      | cnum  | snum  |
++-------+---------+------------+-------+-------+
+| o3001 |   18.69 | 2020-03-10 | c2008 | s1007 |
+| o3002 | 1900.10 | 2021-10-03 | c2007 | s1004 |
+| o3003 |  767.19 | 2020-03-10 | c2001 | s1001 |
+| o3005 | 5160.45 | 2021-10-04 | c2003 | s1002 |
+| o3006 | 1098.16 | 2020-03-10 | c2008 | s1007 |
+| o3007 |   75.75 | 2020-04-10 | c2004 | s1002 |
+| o3008 | 4723.00 | 2021-05-10 | c2006 | s1001 |
+| o3009 | 1713.23 | 2020-04-10 | c2002 | s1003 |
+| o3010 | 1309.95 | 2021-05-10 | c2004 | s1002 |
+| o3011 | 9891.88 | 2021-06-10 | c2006 | s1001 |
++-------+---------+------------+-------+-------+
+10 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:44:21 2025 
+>SELECT '=== QUERY 27: Creating London_staff table ===' AS Query_Description;
++-----------------------------------------------+
+| Query_Description                             |
++-----------------------------------------------+
+| === QUERY 27: Creating London_staff table === |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:43:42 2025 
+>CREATE TABLE London_staff (
+    ->     snum VARCHAR(6) PRIMARY KEY,
+    ->     sname VARCHAR(20) NOT NULL,
+    ->     city VARCHAR(15) DEFAULT 'London',
+    ->     comm DECIMAL(5,2)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:44:42 2025 
+>DESC London_staff;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | varchar(6)   | NO   | PRI | NULL    |       |
+| sname | varchar(20)  | NO   |     | NULL    |       |
+| city  | varchar(15)  | YES  |     | London  |       |
+| comm  | decimal(5,2) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:45:19 2025 
+>exit

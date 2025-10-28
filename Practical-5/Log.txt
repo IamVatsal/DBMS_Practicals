@@ -1,0 +1,1144 @@
+24012011142_Vatsal [(none)] Fri Oct  3 17:51:17 2025 
+>PROMPT 24012011142_Vatsal [\d] \D \n>
+PROMPT set to '24012011142_Vatsal [\d] \D \n>'
+24012011142_Vatsal [(none)] Fri Oct  3 17:51:20 2025 
+>DROP DATABASE IF EXISTS PRACTICAL_5_24012011142;
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+24012011142_Vatsal [(none)] Fri Oct  3 17:51:28 2025 
+>CREATE DATABASE PRACTICAL_5_24012011142;
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [(none)] Fri Oct  3 17:51:28 2025 
+>USE PRACTICAL_5_24012011142;
+Database changed
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:51:38 2025 
+>CREATE TABLE salesmen (
+    ->     snum VARCHAR(6) PRIMARY KEY CHECK (snum LIKE 's%'),
+    ->     sname VARCHAR(20) NOT NULL,
+    ->     city VARCHAR(15),
+    ->     comm DECIMAL(5,2)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:51:46 2025 
+>DESC salesmen;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | varchar(6)   | NO   | PRI | NULL    |       |
+| sname | varchar(20)  | NO   |     | NULL    |       |
+| city  | varchar(15)  | YES  |     | NULL    |       |
+| comm  | decimal(5,2) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:51:53 2025 
+>CREATE TABLE customer (
+    ->     cnum VARCHAR(6) PRIMARY KEY CHECK (cnum LIKE 'c%'),
+    ->     cname VARCHAR(20) NOT NULL,
+    ->     city VARCHAR(15),
+    ->     rating INT,
+    ->     snum VARCHAR(6)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:52:03 2025 
+>DESC customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| cnum   | varchar(6)  | NO   | PRI | NULL    |       |
+| cname  | varchar(20) | NO   |     | NULL    |       |
+| city   | varchar(15) | YES  |     | NULL    |       |
+| rating | int         | YES  |     | NULL    |       |
+| snum   | varchar(6)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:52:11 2025 
+>CREATE TABLE order_info (
+    ->     onum VARCHAR(6) PRIMARY KEY CHECK (onum LIKE 'o%'),
+    ->     amt DECIMAL(10,2) NOT NULL,
+    ->     odate DATE,
+    ->     cnum VARCHAR(6),
+    ->     snum VARCHAR(6)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:52:17 2025 
+>DESC order_info;
++-------+---------------+------+-----+---------+-------+
+| Field | Type          | Null | Key | Default | Extra |
++-------+---------------+------+-----+---------+-------+
+| onum  | varchar(6)    | NO   | PRI | NULL    |       |
+| amt   | decimal(10,2) | NO   |     | NULL    |       |
+| odate | date          | YES  |     | NULL    |       |
+| cnum  | varchar(6)    | YES  |     | NULL    |       |
+| snum  | varchar(6)    | YES  |     | NULL    |       |
++-------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:52:22 2025 
+>SELECT '=== BEFORE INSERT - SALESMEN TABLE ===' AS Status;
++----------------------------------------+
+| Status                                 |
++----------------------------------------+
+| === BEFORE INSERT - SALESMEN TABLE === |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:52:36 2025 
+>SELECT * FROM salesmen;
+Empty set (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:52:36 2025 
+>INSERT INTO salesmen VALUES ('s1001', 'Piyush', 'London', 0.12);
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:01 2025 
+>INSERT INTO salesmen VALUES ('s1002', 'Niraj', 'san jose', 0.13);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:01 2025 
+>INSERT INTO salesmen VALUES ('s1003', 'Miti', 'London', 0.11);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:01 2025 
+>INSERT INTO salesmen VALUES ('s1004', 'Rajesh', 'Barcelona', 0.15);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:01 2025 
+>INSERT INTO salesmen VALUES ('s1005', 'Haresh', 'new York', 0.10);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:01 2025 
+>INSERT INTO salesmen VALUES ('s1006', 'Ram', 'Bombay', 0.10);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:01 2025 
+>INSERT INTO salesmen VALUES ('s1007', 'Nehal', 'Delhi', 0.09);
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:36 2025 
+>SELECT '=== AFTER INSERT - SALESMEN TABLE ===' AS Status;
++---------------------------------------+
+| Status                                |
++---------------------------------------+
+| === AFTER INSERT - SALESMEN TABLE === |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:48 2025 
+>SELECT * FROM salesmen;
++-------+--------+-----------+------+
+| snum  | sname  | city      | comm |
++-------+--------+-----------+------+
+| s1001 | Piyush | London    | 0.12 |
+| s1002 | Niraj  | san jose  | 0.13 |
+| s1003 | Miti   | London    | 0.11 |
+| s1004 | Rajesh | Barcelona | 0.15 |
+| s1005 | Haresh | new York  | 0.10 |
+| s1006 | Ram    | Bombay    | 0.10 |
+| s1007 | Nehal  | Delhi     | 0.09 |
++-------+--------+-----------+------+
+7 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:53:48 2025 
+>SELECT '=== BEFORE INSERT - CUSTOMER TABLE ===' AS Status;
++----------------------------------------+
+| Status                                 |
++----------------------------------------+
+| === BEFORE INSERT - CUSTOMER TABLE === |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:35 2025 
+>SELECT * FROM customer;
+Empty set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:37 2025 
+>INSERT INTO customer VALUES ('c2001', 'hardik', 'london', 100, 's1001');
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:48 2025 
+>INSERT INTO customer VALUES ('c2002', 'geeta', 'rome', 200, 's1003');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:48 2025 
+>INSERT INTO customer VALUES ('c2003', 'kavish', 'san jose', 200, 's1002');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:48 2025 
+>INSERT INTO customer VALUES ('c2004', 'dhruv', 'berlin', 300, 's1002');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:48 2025 
+>INSERT INTO customer VALUES ('c2005', 'pratham', 'london', 100, 's1001');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:48 2025 
+>INSERT INTO customer VALUES ('c2006', 'vyomesh', 'san jose', 300, 's1007');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:48 2025 
+>INSERT INTO customer VALUES ('c2007', 'kirit', 'rome', 100, 's1004');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:48 2025 
+>INSERT INTO customer VALUES ('c2008', 'agam', NULL, 200, 's1003');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:48 2025 
+>INSERT INTO customer VALUES ('c2009', 'falgun', 'san jose', NULL, 's1001');
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:49 2025 
+>SELECT '=== AFTER INSERT - CUSTOMER TABLE ===' AS Status;
++---------------------------------------+
+| Status                                |
++---------------------------------------+
+| === AFTER INSERT - CUSTOMER TABLE === |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:54 2025 
+>SELECT * FROM customer;
++-------+---------+----------+--------+-------+
+| cnum  | cname   | city     | rating | snum  |
++-------+---------+----------+--------+-------+
+| c2001 | hardik  | london   |    100 | s1001 |
+| c2002 | geeta   | rome     |    200 | s1003 |
+| c2003 | kavish  | san jose |    200 | s1002 |
+| c2004 | dhruv   | berlin   |    300 | s1002 |
+| c2005 | pratham | london   |    100 | s1001 |
+| c2006 | vyomesh | san jose |    300 | s1007 |
+| c2007 | kirit   | rome     |    100 | s1004 |
+| c2008 | agam    | NULL     |    200 | s1003 |
+| c2009 | falgun  | san jose |   NULL | s1001 |
++-------+---------+----------+--------+-------+
+9 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:54:55 2025 
+>SELECT '=== BEFORE INSERT - ORDER_INFO TABLE ===' AS Status;
++------------------------------------------+
+| Status                                   |
++------------------------------------------+
+| === BEFORE INSERT - ORDER_INFO TABLE === |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:00 2025 
+>SELECT * FROM order_info;
+Empty set (0.00 sec)
+
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:01 2025 
+>INSERT INTO order_info VALUES ('o3001', 18.69, '2020-03-10', 'c2008', 's1007');
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3003', 767.19, '2020-03-10', 'c2001', 's1001');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3002', 1900.10, '2021-10-03', 'c2007', 's1004');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3005', 5160.45, '2021-10-04', 'c2003', 's1002');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3006', 1098.16, '2020-03-10', 'c2008', 's1007');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3009', 1713.23, '2020-04-10', 'c2002', 's1003');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3007', 75.75, '2020-04-10', 'c2004', 's1002');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3008', 4723.00, '2021-05-10', 'c2006', 's1001');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3010', 1309.95, '2021-05-10', 'c2004', 's1002');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>INSERT INTO order_info VALUES ('o3011', 9891.88, '2021-06-10', 'c2006', 's1001');
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:38 2025 
+>SELECT '=== AFTER INSERT - ORDER_INFO TABLE ===' AS Status;
++-----------------------------------------+
+| Status                                  |
++-----------------------------------------+
+| === AFTER INSERT - ORDER_INFO TABLE === |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:45 2025 
+>SELECT * FROM order_info;
++-------+---------+------------+-------+-------+
+| onum  | amt     | odate      | cnum  | snum  |
++-------+---------+------------+-------+-------+
+| o3001 |   18.69 | 2020-03-10 | c2008 | s1007 |
+| o3002 | 1900.10 | 2021-10-03 | c2007 | s1004 |
+| o3003 |  767.19 | 2020-03-10 | c2001 | s1001 |
+| o3005 | 5160.45 | 2021-10-04 | c2003 | s1002 |
+| o3006 | 1098.16 | 2020-03-10 | c2008 | s1007 |
+| o3007 |   75.75 | 2020-04-10 | c2004 | s1002 |
+| o3008 | 4723.00 | 2021-05-10 | c2006 | s1001 |
+| o3009 | 1713.23 | 2020-04-10 | c2002 | s1003 |
+| o3010 | 1309.95 | 2021-05-10 | c2004 | s1002 |
+| o3011 | 9891.88 | 2021-06-10 | c2006 | s1001 |
++-------+---------+------------+-------+-------+
+10 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:55:47 2025 
+>SELECT '=== QUERY 1: Distinct Commission Values ===' AS Query_Description;
++---------------------------------------------+
+| Query_Description                           |
++---------------------------------------------+
+| === QUERY 1: Distinct Commission Values === |
++---------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:56:21 2025 
+>SELECT * FROM salesmen;
++-------+--------+-----------+------+
+| snum  | sname  | city      | comm |
++-------+--------+-----------+------+
+| s1001 | Piyush | London    | 0.12 |
+| s1002 | Niraj  | san jose  | 0.13 |
+| s1003 | Miti   | London    | 0.11 |
+| s1004 | Rajesh | Barcelona | 0.15 |
+| s1005 | Haresh | new York  | 0.10 |
+| s1006 | Ram    | Bombay    | 0.10 |
+| s1007 | Nehal  | Delhi     | 0.09 |
++-------+--------+-----------+------+
+7 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:56:28 2025 
+>SELECT DISTINCT comm FROM salesmen;
++------+
+| comm |
++------+
+| 0.12 |
+| 0.13 |
+| 0.11 |
+| 0.15 |
+| 0.10 |
+| 0.09 |
++------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:56:32 2025 
+>SELECT '=== QUERY 2: Salesmen in Barcelona or London ===' AS Query_Description;
++--------------------------------------------------+
+| Query_Description                                |
++--------------------------------------------------+
+| === QUERY 2: Salesmen in Barcelona or London === |
++--------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:56:44 2025 
+>SELECT * FROM salesmen WHERE city IN ('Barcelona', 'London');
++-------+--------+-----------+------+
+| snum  | sname  | city      | comm |
++-------+--------+-----------+------+
+| s1001 | Piyush | London    | 0.12 |
+| s1003 | Miti   | London    | 0.11 |
+| s1004 | Rajesh | Barcelona | 0.15 |
++-------+--------+-----------+------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:56:50 2025 
+>SELECT '=== QUERY 3: Salesmen with commission between 0.10 and 0.12 ===' AS Query_Description;
++-----------------------------------------------------------------+
+| Query_Description                                               |
++-----------------------------------------------------------------+
+| === QUERY 3: Salesmen with commission between 0.10 and 0.12 === |
++-----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:57:05 2025 
+>SELECT * FROM salesmen WHERE comm BETWEEN 0.10 AND 0.12;
++-------+--------+----------+------+
+| snum  | sname  | city     | comm |
++-------+--------+----------+------+
+| s1001 | Piyush | London   | 0.12 |
+| s1003 | Miti   | London   | 0.11 |
+| s1005 | Haresh | new York | 0.10 |
+| s1006 | Ram    | Bombay   | 0.10 |
++-------+--------+----------+------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:57:09 2025 
+>SELECT '=== QUERY 4: Customers with third letter R in name ===' AS Query_Description;
++--------------------------------------------------------+
+| Query_Description                                      |
++--------------------------------------------------------+
+| === QUERY 4: Customers with third letter R in name === |
++--------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:57:17 2025 
+>SELECT * FROM customer WHERE cname LIKE '__r%';
++-------+--------+--------+--------+-------+
+| cnum  | cname  | city   | rating | snum  |
++-------+--------+--------+--------+-------+
+| c2001 | hardik | london |    100 | s1001 |
+| c2004 | dhruv  | berlin |    300 | s1002 |
+| c2007 | kirit  | rome   |    100 | s1004 |
++-------+--------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:57:24 2025 
+>SELECT '=== QUERY 5: Salesmen name starting with P and ending with h ===' AS Query_Description;
++------------------------------------------------------------------+
+| Query_Description                                                |
++------------------------------------------------------------------+
+| === QUERY 5: Salesmen name starting with P and ending with h === |
++------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:57:42 2025 
+>SELECT * FROM salesmen WHERE sname LIKE 'P%h';
++-------+--------+--------+------+
+| snum  | sname  | city   | comm |
++-------+--------+--------+------+
+| s1001 | Piyush | London | 0.12 |
++-------+--------+--------+------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:57:48 2025 
+>SELECT '=== QUERY 6: Customers with NULL city ===' AS Query_Description;
++-------------------------------------------+
+| Query_Description                         |
++-------------------------------------------+
+| === QUERY 6: Customers with NULL city === |
++-------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:57:54 2025 
+>SELECT * FROM customer WHERE city IS NULL;
++-------+-------+------+--------+-------+
+| cnum  | cname | city | rating | snum  |
++-------+-------+------+--------+-------+
+| c2008 | agam  | NULL |    200 | s1003 |
++-------+-------+------+--------+-------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:57:59 2025 
+>SELECT '=== QUERY 7a: Orders on Oct 3-4, 2020 (BETWEEN) ===' AS Query_Description;
++-----------------------------------------------------+
+| Query_Description                                   |
++-----------------------------------------------------+
+| === QUERY 7a: Orders on Oct 3-4, 2020 (BETWEEN) === |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:58:07 2025 
+>SELECT * FROM order_info 
+    -> WHERE odate BETWEEN '2020-10-03' AND '2020-10-04';
+Empty set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:58:22 2025 
+>SELECT '=== QUERY 7b: Orders on Oct 3-4, 2020 (OR) ===' AS Query_Description;
++------------------------------------------------+
+| Query_Description                              |
++------------------------------------------------+
+| === QUERY 7b: Orders on Oct 3-4, 2020 (OR) === |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:59:34 2025 
+>SELECT * FROM order_info 
+    -> WHERE odate = '2020-10-03' OR odate = '2020-10-04';
+Empty set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:59:39 2025 
+>SELECT '=== QUERY 8: Orders without zeros or nulls in amount ===' AS Query_Description;
++----------------------------------------------------------+
+| Query_Description                                        |
++----------------------------------------------------------+
+| === QUERY 8: Orders without zeros or nulls in amount === |
++----------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:59:50 2025 
+>SELECT * FROM order_info WHERE amt IS NOT NULL AND amt != 0;
++-------+---------+------------+-------+-------+
+| onum  | amt     | odate      | cnum  | snum  |
++-------+---------+------------+-------+-------+
+| o3001 |   18.69 | 2020-03-10 | c2008 | s1007 |
+| o3002 | 1900.10 | 2021-10-03 | c2007 | s1004 |
+| o3003 |  767.19 | 2020-03-10 | c2001 | s1001 |
+| o3005 | 5160.45 | 2021-10-04 | c2003 | s1002 |
+| o3006 | 1098.16 | 2020-03-10 | c2008 | s1007 |
+| o3007 |   75.75 | 2020-04-10 | c2004 | s1002 |
+| o3008 | 4723.00 | 2021-05-10 | c2006 | s1001 |
+| o3009 | 1713.23 | 2020-04-10 | c2002 | s1003 |
+| o3010 | 1309.95 | 2021-05-10 | c2004 | s1002 |
+| o3011 | 9891.88 | 2021-06-10 | c2006 | s1001 |
++-------+---------+------------+-------+-------+
+10 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 17:59:56 2025 
+>SELECT '=== QUERY 9: Count of distinct salesmen in orders ===' AS Query_Description;
++-------------------------------------------------------+
+| Query_Description                                     |
++-------------------------------------------------------+
+| === QUERY 9: Count of distinct salesmen in orders === |
++-------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:00:42 2025 
+>SELECT COUNT(DISTINCT snum) AS salesmen_count FROM order_info;
++----------------+
+| salesmen_count |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:01:38 2025 
+>SELECT '=== QUERY 10: Count of ratings (with and without NULL) ===' AS Query_Description;
++------------------------------------------------------------+
+| Query_Description                                          |
++------------------------------------------------------------+
+| === QUERY 10: Count of ratings (with and without NULL) === |
++------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:02:13 2025 
+>SELECT 
+    ->     COUNT(rating) AS rating_count_without_null,
+    ->     COUNT(*) AS rating_count_with_null
+    -> FROM customer;
++---------------------------+------------------------+
+| rating_count_without_null | rating_count_with_null |
++---------------------------+------------------------+
+|                         8 |                      9 |
++---------------------------+------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:02:21 2025 
+>SELECT '=== QUERY 11: Largest order by each salesperson ===' AS Query_Description;
++-----------------------------------------------------+
+| Query_Description                                   |
++-----------------------------------------------------+
+| === QUERY 11: Largest order by each salesperson === |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:04:05 2025 
+>SELECT snum, MAX(amt) AS largest_order 
+    -> FROM order_info 
+    -> GROUP BY snum;
++-------+---------------+
+| snum  | largest_order |
++-------+---------------+
+| s1007 |       1098.16 |
+| s1004 |       1900.10 |
+| s1001 |       9891.88 |
+| s1002 |       5160.45 |
+| s1003 |       1713.23 |
++-------+---------------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:04:11 2025 
+>SELECT '=== QUERY 12: Largest order by salesperson on each date ===' AS Query_Description;
++-------------------------------------------------------------+
+| Query_Description                                           |
++-------------------------------------------------------------+
+| === QUERY 12: Largest order by salesperson on each date === |
++-------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:04:34 2025 
+>SELECT snum, odate, MAX(amt) AS largest_order 
+    -> FROM order_info 
+    -> GROUP BY snum, odate;
++-------+------------+---------------+
+| snum  | odate      | largest_order |
++-------+------------+---------------+
+| s1007 | 2020-03-10 |       1098.16 |
+| s1004 | 2021-10-03 |       1900.10 |
+| s1001 | 2020-03-10 |        767.19 |
+| s1002 | 2021-10-04 |       5160.45 |
+| s1002 | 2020-04-10 |         75.75 |
+| s1001 | 2021-05-10 |       4723.00 |
+| s1003 | 2020-04-10 |       1713.23 |
+| s1002 | 2021-05-10 |       1309.95 |
+| s1001 | 2021-06-10 |       9891.88 |
++-------+------------+---------------+
+9 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:04:39 2025 
+>SELECT '=== QUERY 13: Total amount by customer (>800) ===' AS Query_Description;
++---------------------------------------------------+
+| Query_Description                                 |
++---------------------------------------------------+
+| === QUERY 13: Total amount by customer (>800) === |
++---------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:05:17 2025 
+>SELECT cnum, SUM(amt) AS total_amount 
+    -> FROM order_info 
+    -> GROUP BY cnum 
+    -> HAVING SUM(amt) > 800;
++-------+--------------+
+| cnum  | total_amount |
++-------+--------------+
+| c2008 |      1116.85 |
+| c2007 |      1900.10 |
+| c2003 |      5160.45 |
+| c2004 |      1385.70 |
+| c2006 |     14614.88 |
+| c2002 |      1713.23 |
++-------+--------------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:05:30 2025 
+>SELECT '=== QUERY 14: Count of distinct non-NULL cities ===' AS Query_Description;
++-----------------------------------------------------+
+| Query_Description                                   |
++-----------------------------------------------------+
+| === QUERY 14: Count of distinct non-NULL cities === |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:05:39 2025 
+>SELECT COUNT(DISTINCT city) AS city_count FROM customer;
++------------+
+| city_count |
++------------+
+|          4 |
++------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:05:43 2025 
+>SELECT '=== QUERY 15: Salesmen by snum descending ===' AS Query_Description;
++-----------------------------------------------+
+| Query_Description                             |
++-----------------------------------------------+
+| === QUERY 15: Salesmen by snum descending === |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:06:04 2025 
+>SELECT sname, comm FROM salesmen ORDER BY snum DESC;
++--------+------+
+| sname  | comm |
++--------+------+
+| Nehal  | 0.09 |
+| Ram    | 0.10 |
+| Haresh | 0.10 |
+| Rajesh | 0.15 |
+| Miti   | 0.11 |
+| Niraj  | 0.13 |
+| Piyush | 0.12 |
++--------+------+
+7 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:06:13 2025 
+>SELECT '=== QUERY 16: Order with salesperson commission (12%) ===' AS Query_Description;
++-----------------------------------------------------------+
+| Query_Description                                         |
++-----------------------------------------------------------+
+| === QUERY 16: Order with salesperson commission (12%) === |
++-----------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:06:24 2025 
+>SELECT onum, snum, amt * 0.12 AS commission 
+    -> FROM order_info;
++-------+-------+------------+
+| onum  | snum  | commission |
++-------+-------+------------+
+| o3001 | s1007 |     2.2428 |
+| o3002 | s1004 |   228.0120 |
+| o3003 | s1001 |    92.0628 |
+| o3005 | s1002 |   619.2540 |
+| o3006 | s1007 |   131.7792 |
+| o3007 | s1002 |     9.0900 |
+| o3008 | s1001 |   566.7600 |
+| o3009 | s1003 |   205.5876 |
+| o3010 | s1002 |   157.1940 |
+| o3011 | s1001 |  1187.0256 |
++-------+-------+------------+
+10 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:06:31 2025 
+>SELECT '=== QUERY 17: Highest rating by city ===' AS Query_Description;
++------------------------------------------+
+| Query_Description                        |
++------------------------------------------+
+| === QUERY 17: Highest rating by city === |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:07:22 2025 
+>SELECT CONCAT('For the city ', city, ', the highest rating is: ', MAX(rating)) AS result
+    -> FROM customer 
+    -> WHERE city IS NOT NULL
+    -> GROUP BY city;
++---------------------------------------------------+
+| result                                            |
++---------------------------------------------------+
+| For the city london, the highest rating is: 100   |
+| For the city rome, the highest rating is: 200     |
+| For the city san jose, the highest rating is: 300 |
+| For the city berlin, the highest rating is: 300   |
++---------------------------------------------------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:07:29 2025 
+>SELECT '=== QUERY 18: Total orders by date (descending) ===' AS Query_Description;
++-----------------------------------------------------+
+| Query_Description                                   |
++-----------------------------------------------------+
+| === QUERY 18: Total orders by date (descending) === |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:08:18 2025 
+>SELECT odate, SUM(amt) AS total_amount 
+    -> FROM order_info 
+    -> GROUP BY odate 
+    -> ORDER BY total_amount DESC;
++------------+--------------+
+| odate      | total_amount |
++------------+--------------+
+| 2021-06-10 |      9891.88 |
+| 2021-05-10 |      6032.95 |
+| 2021-10-04 |      5160.45 |
+| 2021-10-03 |      1900.10 |
+| 2020-03-10 |      1884.04 |
+| 2020-04-10 |      1788.98 |
++------------+--------------+
+6 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:08:22 2025 
+>SELECT c.cname, s.sname 
+    -> FROM customer c 
+    -> INNER JOIN salesmen s ON c.snum = s.snum;
++---------+--------+
+| cname   | sname  |
++---------+--------+
+| hardik  | Piyush |
+| geeta   | Miti   |
+| kavish  | Niraj  |
+| dhruv   | Niraj  |
+| pratham | Piyush |
+| vyomesh | Nehal  |
+| kirit   | Rajesh |
+| agam    | Miti   |
+| falgun  | Piyush |
++---------+--------+
+9 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:08:30 2025 
+>SELECT '=== QUERY 20: Order number with customer name ===' AS Query_Description;
++---------------------------------------------------+
+| Query_Description                                 |
++---------------------------------------------------+
+| === QUERY 20: Order number with customer name === |
++---------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:08:40 2025 
+>SELECT o.onum, c.cname 
+    -> FROM order_info o 
+    -> INNER JOIN customer c ON o.cnum = c.cnum;
++-------+---------+
+| onum  | cname   |
++-------+---------+
+| o3001 | agam    |
+| o3002 | kirit   |
+| o3003 | hardik  |
+| o3005 | kavish  |
+| o3006 | agam    |
+| o3007 | dhruv   |
+| o3008 | vyomesh |
+| o3009 | geeta   |
+| o3010 | dhruv   |
+| o3011 | vyomesh |
++-------+---------+
+10 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:08:54 2025 
+>SELECT '=== QUERY 21: Order with salesperson and customer names ===' AS Query_Description;
++-------------------------------------------------------------+
+| Query_Description                                           |
++-------------------------------------------------------------+
+| === QUERY 21: Order with salesperson and customer names === |
++-------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:09:08 2025 
+>SELECT o.onum, s.sname AS salesperson_name, c.cname AS customer_name
+    -> FROM order_info o 
+    -> INNER JOIN customer c ON o.cnum = c.cnum
+    -> INNER JOIN salesmen s ON o.snum = s.snum;
++-------+------------------+---------------+
+| onum  | salesperson_name | customer_name |
++-------+------------------+---------------+
+| o3001 | Nehal            | agam          |
+| o3002 | Rajesh           | kirit         |
+| o3003 | Piyush           | hardik        |
+| o3005 | Niraj            | kavish        |
+| o3006 | Nehal            | agam          |
+| o3007 | Niraj            | dhruv         |
+| o3008 | Piyush           | vyomesh       |
+| o3009 | Miti             | geeta         |
+| o3010 | Niraj            | dhruv         |
+| o3011 | Piyush           | vyomesh       |
++-------+------------------+---------------+
+10 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:10:13 2025 
+>SELECT '=== QUERY 22: Customers with salesmen commission > 0.12 ===' AS Query_Description;
++-------------------------------------------------------------+
+| Query_Description                                           |
++-------------------------------------------------------------+
+| === QUERY 22: Customers with salesmen commission > 0.12 === |
++-------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:10:24 2025 
+>SELECT c.cname, s.sname, s.comm 
+    -> FROM customer c 
+    -> INNER JOIN salesmen s ON c.snum = s.snum 
+    -> WHERE s.comm > 0.12;
++--------+--------+------+
+| cname  | sname  | comm |
++--------+--------+------+
+| kavish | Niraj  | 0.13 |
+| dhruv  | Niraj  | 0.13 |
+| kirit  | Rajesh | 0.15 |
++--------+--------+------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:10:52 2025 
+>SELECT '=== QUERY 23: Commission on orders (customer rating > 100) ===' AS Query_Description;
++----------------------------------------------------------------+
+| Query_Description                                              |
++----------------------------------------------------------------+
+| === QUERY 23: Commission on orders (customer rating > 100) === |
++----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:11:10 2025 
+>SELECT o.onum, o.amt, s.comm, (o.amt * s.comm) AS commission_amount
+    -> FROM order_info o 
+    -> INNER JOIN customer c ON o.cnum = c.cnum
+    -> INNER JOIN salesmen s ON o.snum = s.snum
+    -> WHERE c.rating > 100;
++-------+---------+------+-------------------+
+| onum  | amt     | comm | commission_amount |
++-------+---------+------+-------------------+
+| o3001 |   18.69 | 0.09 |            1.6821 |
+| o3005 | 5160.45 | 0.13 |          670.8585 |
+| o3006 | 1098.16 | 0.09 |           98.8344 |
+| o3007 |   75.75 | 0.13 |            9.8475 |
+| o3008 | 4723.00 | 0.12 |          566.7600 |
+| o3009 | 1713.23 | 0.11 |          188.4553 |
+| o3010 | 1309.95 | 0.13 |          170.2935 |
+| o3011 | 9891.88 | 0.12 |         1187.0256 |
++-------+---------+------+-------------------+
+8 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:11:18 2025 
+>SELECT '=== QUERY 24: Customers with rating classification ===' AS Query_Description;
++--------------------------------------------------------+
+| Query_Description                                      |
++--------------------------------------------------------+
+| === QUERY 24: Customers with rating classification === |
++--------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:11:38 2025 
+>SELECT cname, city, rating, 'HIGH RATING' AS rating_category
+    -> FROM customer 
+    -> WHERE rating >= 200
+    -> UNION
+    -> SELECT cname, city, rating, 'LOW RATING' AS rating_category
+    -> FROM customer 
+    -> WHERE rating < 200;
++---------+----------+--------+-----------------+
+| cname   | city     | rating | rating_category |
++---------+----------+--------+-----------------+
+| geeta   | rome     |    200 | HIGH RATING     |
+| kavish  | san jose |    200 | HIGH RATING     |
+| dhruv   | berlin   |    300 | HIGH RATING     |
+| vyomesh | san jose |    300 | HIGH RATING     |
+| agam    | NULL     |    200 | HIGH RATING     |
+| hardik  | london   |    100 | LOW RATING      |
+| pratham | london   |    100 | LOW RATING      |
+| kirit   | rome     |    100 | LOW RATING      |
++---------+----------+--------+-----------------+
+8 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:11:51 2025 
+>SELECT '=== QUERY 25: Customers with orders on 10-Mar-2020 ===' AS Query_Description;
++--------------------------------------------------------+
+| Query_Description                                      |
++--------------------------------------------------------+
+| === QUERY 25: Customers with orders on 10-Mar-2020 === |
++--------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:14:11 2025 
+>SELECT * FROM customer 
+    -> WHERE cnum IN (
+    ->     SELECT cnum FROM order_info WHERE odate = '2020-03-10'
+    -> );
++-------+--------+--------+--------+-------+
+| cnum  | cname  | city   | rating | snum  |
++-------+--------+--------+--------+-------+
+| c2008 | agam   | NULL   |    200 | s1003 |
+| c2001 | hardik | london |    100 | s1001 |
++-------+--------+--------+--------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:14:31 2025 
+>SELECT '=== QUERY 26: Customers with rating > any customer in Rome ===' AS Query_Description;
++----------------------------------------------------------------+
+| Query_Description                                              |
++----------------------------------------------------------------+
+| === QUERY 26: Customers with rating > any customer in Rome === |
++----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:14:49 2025 
+>SELECT * FROM customer 
+    -> WHERE rating > (
+    ->     SELECT MIN(rating) FROM customer WHERE city = 'rome'
+    -> );
++-------+---------+----------+--------+-------+
+| cnum  | cname   | city     | rating | snum  |
++-------+---------+----------+--------+-------+
+| c2002 | geeta   | rome     |    200 | s1003 |
+| c2003 | kavish  | san jose |    200 | s1002 |
+| c2004 | dhruv   | berlin   |    300 | s1002 |
+| c2006 | vyomesh | san jose |    300 | s1007 |
+| c2008 | agam    | NULL     |    200 | s1003 |
++-------+---------+----------+--------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:14:57 2025 
+>SELECT '=== QUERY 27: Creating London_staff table ===' AS Query_Description;
++-----------------------------------------------+
+| Query_Description                             |
++-----------------------------------------------+
+| === QUERY 27: Creating London_staff table === |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:16:23 2025 
+>DESC salesmen;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | varchar(6)   | NO   | PRI | NULL    |       |
+| sname | varchar(20)  | NO   |     | NULL    |       |
+| city  | varchar(15)  | YES  |     | NULL    |       |
+| comm  | decimal(5,2) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:43:42 2025 
+>CREATE TABLE London_staff (
+    ->     snum VARCHAR(6) PRIMARY KEY,
+    ->     sname VARCHAR(20) NOT NULL,
+    ->     city VARCHAR(15) DEFAULT 'London',
+    ->     comm DECIMAL(5,2)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [Practical_5_24012011142] Fri Oct  3 19:44:42 2025 
+>DESC London_staff;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | varchar(6)   | NO   | PRI | NULL    |       |
+| sname | varchar(20)  | NO   |     | NULL    |       |
+| city  | varchar(15)  | YES  |     | London  |       |
+| comm  | decimal(5,2) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:17:10 2025 
+>SELECT '=== QUERY 28: Deleting salesmen with customers rating 100 ===' AS Query_Description;
++---------------------------------------------------------------+
+| Query_Description                                             |
++---------------------------------------------------------------+
+| === QUERY 28: Deleting salesmen with customers rating 100 === |
++---------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:17:29 2025 
+>SELECT '=== QUERY 28: Deleting salesmen with customers rating 100 ===' AS Query_Description;
++---------------------------------------------------------------+
+| Query_Description                                             |
++---------------------------------------------------------------+
+| === QUERY 28: Deleting salesmen with customers rating 100 === |
++---------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:18:47 2025 
+>DELETE FROM salesmen 
+    -> WHERE snum IN (
+    ->     SELECT DISTINCT snum FROM customer WHERE rating = 100
+    -> );
+Query OK, 2 rows affected (0.01 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:01 2025 
+>SELECT * FROM salesmen;
++-------+--------+----------+------+
+| snum  | sname  | city     | comm |
++-------+--------+----------+------+
+| s1002 | Niraj  | san jose | 0.13 |
+| s1003 | Miti   | London   | 0.11 |
+| s1005 | Haresh | new York | 0.10 |
+| s1006 | Ram    | Bombay   | 0.10 |
+| s1007 | Nehal  | Delhi    | 0.09 |
++-------+--------+----------+------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:08 2025 
+>SELECT '=== BONUS: UPDATE OPERATION DEMONSTRATION ===' AS Operation;
++-----------------------------------------------+
+| Operation                                     |
++-----------------------------------------------+
+| === BONUS: UPDATE OPERATION DEMONSTRATION === |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:19 2025 
+>SELECT * FROM customer;
++-------+---------+----------+--------+-------+
+| cnum  | cname   | city     | rating | snum  |
++-------+---------+----------+--------+-------+
+| c2001 | hardik  | london   |    100 | s1001 |
+| c2002 | geeta   | rome     |    200 | s1003 |
+| c2003 | kavish  | san jose |    200 | s1002 |
+| c2004 | dhruv   | berlin   |    300 | s1002 |
+| c2005 | pratham | london   |    100 | s1001 |
+| c2006 | vyomesh | san jose |    300 | s1007 |
+| c2007 | kirit   | rome     |    100 | s1004 |
+| c2008 | agam    | NULL     |    200 | s1003 |
+| c2009 | falgun  | san jose |   NULL | s1001 |
++-------+---------+----------+--------+-------+
+9 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:24 2025 
+>UPDATE customer 
+    -> SET rating = 150 
+    -> WHERE cnum = 'c2009';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:31 2025 
+>SELECT * FROM customer;
++-------+---------+----------+--------+-------+
+| cnum  | cname   | city     | rating | snum  |
++-------+---------+----------+--------+-------+
+| c2001 | hardik  | london   |    100 | s1001 |
+| c2002 | geeta   | rome     |    200 | s1003 |
+| c2003 | kavish  | san jose |    200 | s1002 |
+| c2004 | dhruv   | berlin   |    300 | s1002 |
+| c2005 | pratham | london   |    100 | s1001 |
+| c2006 | vyomesh | san jose |    300 | s1007 |
+| c2007 | kirit   | rome     |    100 | s1004 |
+| c2008 | agam    | NULL     |    200 | s1003 |
+| c2009 | falgun  | san jose |    150 | s1001 |
++-------+---------+----------+--------+-------+
+9 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:36 2025 
+>SELECT '=== BONUS: ALTER OPERATIONS DEMONSTRATION ===' AS Operation;
++-----------------------------------------------+
+| Operation                                     |
++-----------------------------------------------+
+| === BONUS: ALTER OPERATIONS DEMONSTRATION === |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:42 2025 
+>DESC London_staff;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | varchar(6)   | NO   | PRI | NULL    |       |
+| sname | varchar(20)  | NO   |     | NULL    |       |
+| city  | varchar(15)  | YES  |     | NULL    |       |
+| comm  | decimal(5,2) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:47 2025 
+>ALTER TABLE London_staff ADD phone VARCHAR(15);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:52 2025 
+>DESC London_staff;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | varchar(6)   | NO   | PRI | NULL    |       |
+| sname | varchar(20)  | NO   |     | NULL    |       |
+| city  | varchar(15)  | YES  |     | NULL    |       |
+| comm  | decimal(5,2) | YES  |     | NULL    |       |
+| phone | varchar(15)  | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:19:56 2025 
+>ALTER TABLE London_staff MODIFY phone VARCHAR(20);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:20:20 2025 
+>DESC London_staff;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | varchar(6)   | NO   | PRI | NULL    |       |
+| sname | varchar(20)  | NO   |     | NULL    |       |
+| city  | varchar(15)  | YES  |     | NULL    |       |
+| comm  | decimal(5,2) | YES  |     | NULL    |       |
+| phone | varchar(20)  | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:20:24 2025 
+>ALTER TABLE London_staff DROP COLUMN phone;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:20:48 2025 
+>DESC London_staff;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| snum  | varchar(6)   | NO   | PRI | NULL    |       |
+| sname | varchar(20)  | NO   |     | NULL    |       |
+| city  | varchar(15)  | YES  |     | NULL    |       |
+| comm  | decimal(5,2) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [PRACTICAL_5_24012011142] Fri Oct  3 18:20:52 2025 
+>NOTEE;
