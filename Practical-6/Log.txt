@@ -1,0 +1,490 @@
+mysql> PROMPT 24012011142_Vatsal [\d] \D \n>
+PROMPT set to '24012011142_Vatsal [\d] \D \n>'
+
+24012011142_Vatsal [(none)] Tue Nov  4 01:11:16 2025 
+>CREATE DATABASE Practical_6_24012011142;
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [(none)] Tue Nov  4 01:11:45 2025 
+>USE Practical_6_24012011142;
+Database changed
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:52:36 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:53:39 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:53:39 2025 
+>CREATE PROCEDURE calculate_if_else_142 (
+    ->     IN val1 DECIMAL(10, 2),
+    ->     IN val2 DECIMAL(10, 2),
+    ->     IN op CHAR(1)
+    -> )
+    -> procedure_calculate_if_else_142: BEGIN 
+    -> 
+    ->     DECLARE result DECIMAL(10, 2);
+    -> 
+    -> 
+    ->         IF op = '+' THEN
+    ->             SET result = val1 + val2;
+    ->         ELSEIF op = '-' THEN
+    ->             SET result = val1 - val2;
+    ->         ELSEIF op = '*' THEN
+    ->             SET result = val1 * val2;
+    ->         ELSEIF op = '/' THEN
+    ->             IF val2 = 0 THEN
+    ->                 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: Division by zero is not allowed.';
+    ->                 LEAVE procedure_calculate_if_else_142;
+    ->             END IF;
+    ->             SET result = val1 / val2;
+    ->         ELSE
+    ->             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: Invalid operator.';
+    ->             LEAVE procedure_calculate_if_else_142;
+    ->         END IF;
+    -> 
+    ->         SELECT CONCAT('Result: ', result) AS Calculation_Result;
+    -> 
+    -> END procedure_calculate_if_else_142;//
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:53:39 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:53:39 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:53:41 2025 
+>CALL calculate_if_else_142(10, 5, '+');
++--------------------+
+| Calculation_Result |
++--------------------+
+| Result: 15.00      |
++--------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:54:18 2025 
+>CALL calculate_if_else_142(10, 5, '@');
+ERROR 1644 (45000): Error: Invalid operator.
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:54:28 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:54:48 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:54:48 2025 
+>CREATE PROCEDURE calculate_case_142 (
+    ->     IN val1 DECIMAL(10, 2),
+    ->     IN val2 DECIMAL(10, 2),
+    ->     IN op CHAR(1)
+    -> )
+    -> procedure_calculate_if_else_142: BEGIN
+    ->     DECLARE result DECIMAL(10, 2);
+    -> 
+    ->     IF op = '/' AND val2 = 0 THEN
+    ->         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: Division by zero is not allowed.';
+    ->         LEAVE procedure_calculate_if_else_142;
+    ->     END IF;
+    -> 
+    ->     CASE op
+    ->         WHEN '+' THEN
+    ->             SET result = val1 + val2;
+    ->         WHEN '-' THEN
+    ->             SET result = val1 - val2;
+    ->         WHEN '*' THEN
+    ->             SET result = val1 * val2;
+    ->         WHEN '/' THEN
+    ->             SET result = val1 / val2;
+    ->         ELSE
+    ->             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: Invalid operator.';
+    ->             LEAVE procedure_calculate_if_else_142;
+    ->     END CASE;
+    -> 
+    ->     SELECT CONCAT('Result: ', result) AS Calculation_Result;
+    -> 
+    -> END procedure_calculate_if_else_142;//
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:54:48 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:54:48 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:54:49 2025 
+>CALL calculate_case_142(20, 4, '/');
++--------------------+
+| Calculation_Result |
++--------------------+
+| Result: 5.00       |
++--------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:55:38 2025 
+>CREATE TABLE employee_details_142 (
+    ->     emp_no INT PRIMARY KEY,
+    ->     name VARCHAR(50) NOT NULL,
+    ->     salary DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:56:01 2025 
+>INSERT INTO employee_details_142 (emp_no, name, salary) VALUES
+    -> (1001, 'Riya', 5000),
+    -> (1002, 'Rima', 10000),
+    -> (1003, 'Rekha', 12000),
+    -> (1004, 'Dhara', 6000);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:56:06 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:57:25 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:57:25 2025 
+>CREATE PROCEDURE update_rekha_salary_142()
+    -> procedure_update_rekha_salary_142: BEGIN
+    -> 
+    ->     DECLARE riya_salary DECIMAL(10, 2);
+    ->     DECLARE rima_salary DECIMAL(10, 2);
+    ->     DECLARE amount_to_add DECIMAL(10, 2);
+    -> 
+    ->     SELECT salary INTO riya_salary
+    ->     FROM employee_details_142
+    ->     WHERE name = 'Riya';
+    -> 
+    ->     SELECT salary INTO rima_salary
+    ->     FROM employee_details_142
+    ->     WHERE name = 'Rima';
+    -> 
+    ->     SET amount_to_add = (riya_salary * 0.50) + (rima_salary * 0.70);
+    -> 
+    ->     UPDATE employee_details_142
+    ->     SET salary = salary + amount_to_add
+    ->     WHERE name = 'Rekha';
+    -> 
+    ->     SELECT *
+    ->     FROM employee_details_142
+    ->     WHERE name = 'Rekha';
+    -> 
+    -> END procedure_update_rekha_salary_142;//
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:57:25 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:57:25 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:57:27 2025 
+>CALL update_rekha_salary_142();
++--------+-------+----------+
+| emp_no | name  | salary   |
++--------+-------+----------+
+|   1003 | Rekha | 21500.00 |
++--------+-------+----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:57:35 2025 
+>CREATE TABLE emp_info_142 (
+    ->     emp_no VARCHAR(10) PRIMARY KEY,
+    ->     name VARCHAR(50) NOT NULL,
+    ->     balance DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:58:02 2025 
+>INSERT INTO emp_info_142 (emp_no, name, balance) VALUES
+    -> ('e001', 'John', 3000),
+    -> ('e002', 'Joly', 4000),
+    -> ('e003', 'Tony', 2000),
+    -> ('e004', 'Doly', 500);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:58:09 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:58:52 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:58:52 2025 
+>CREATE PROCEDURE debit_account_142(
+    ->     IN p_emp_no VARCHAR(10),
+    ->     IN p_debit_amount DECIMAL(10, 2)
+    -> )
+    -> procedure_debit_account_142: BEGIN
+    ->     DECLARE current_balance DECIMAL(10, 2);
+    ->     DECLARE new_balance DECIMAL(10, 2);
+    -> 
+    ->     SELECT balance INTO current_balance
+    ->     FROM emp_info_142
+    ->     WHERE emp_no = p_emp_no;
+    -> 
+    ->     IF current_balance IS NULL THEN
+    ->         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: Employee number not found.';
+    ->         LEAVE procedure_debit_account_142;
+    ->     END IF;
+    -> 
+    ->     SET new_balance = current_balance - p_debit_amount;
+    -> 
+    ->     IF new_balance < 500.00 THEN
+    ->         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Balance below 500/-';
+    ->     ELSE
+    ->         UPDATE emp_info_142
+    ->         SET balance = new_balance
+    ->         WHERE emp_no = p_emp_no;
+    ->         
+    ->         SELECT CONCAT('Successfully debited ', p_debit_amount, '. New balance for ', p_emp_no, ' is ', new_balance) AS Status;
+    ->     END IF;
+    -> 
+    -> END procedure_debit_account_142;//
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:58:52 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:58:52 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:58:53 2025 
+>CALL debit_account_142('e001', 500);
++--------------------------------------------------------------+
+| Status                                                       |
++--------------------------------------------------------------+
+| Successfully debited 500.00. New balance for e001 is 2500.00 |
++--------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:59:25 2025 
+>CALL debit_account_142('e004', 10);
+ERROR 1644 (45000): Balance below 500/-
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 01:59:41 2025 
+>CREATE TABLE old_salary_142 (
+    ->     emp_no INT,
+    ->     previous_salary DECIMAL(10, 2),
+    ->     change_date DATE,
+    ->     PRIMARY KEY (emp_no, change_date)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:00:00 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:00:22 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:00:22 2025 
+>CREATE PROCEDURE manage_emp_salary_update_142 (
+    ->     IN p_emp_no INT
+    -> )
+    -> procedure_manage_emp_salary_update_142: BEGIN
+    ->     DECLARE current_salary DECIMAL(10, 2);
+    ->     DECLARE new_salary DECIMAL(10, 2) DEFAULT 6000;
+    -> 
+    ->     SELECT salary INTO current_salary
+    ->     FROM employee_details_142
+    ->     WHERE emp_no = p_emp_no;
+    -> 
+    ->     IF current_salary < 6000.00 THEN
+    ->         INSERT INTO old_salary_142 (emp_no, previous_salary, change_date)
+    ->         VALUES (p_emp_no, current_salary, CURDATE());
+    -> 
+    ->         UPDATE employee_details_142
+    ->         SET salary = new_salary
+    ->         WHERE emp_no = p_emp_no;
+    -> 
+    ->         SELECT CONCAT('Salary updated for EMP_NO ', p_emp_no, ' from ', current_salary, ' to ', new_salary) AS Status;
+    ->     ELSE
+    ->         SELECT CONCAT('No salary change required for EMP_NO ', p_emp_no, '. Current salary is ', current_salary) AS Status;
+    ->     END IF;
+    -> 
+    -> END procedure_manage_emp_salary_update_142;//
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:00:22 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:00:22 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:00:23 2025 
+>CALL manage_emp_salary_update_142(1001);
++--------------------------------------------------------+
+| Status                                                 |
++--------------------------------------------------------+
+| Salary updated for EMP_NO 1001 from 5000.00 to 6000.00 |
++--------------------------------------------------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:00:37 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:02 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:02 2025 
+>CREATE PROCEDURE sum_natural_loop_142 (
+    ->     IN n INT
+    -> )
+    -> procedure_sum_natural_loop_142: BEGIN
+    ->     DECLARE counter INT DEFAULT 1;
+    ->     DECLARE total_sum INT DEFAULT 0;
+    -> 
+    ->     main_loop: LOOP
+    ->         IF counter > n THEN
+    ->             LEAVE main_loop;
+    ->         END IF;
+    -> 
+    ->         SET total_sum = total_sum + counter;
+    ->         SET counter = counter + 1;
+    ->         
+    ->     END LOOP main_loop;
+    ->     
+    ->     SELECT CONCAT('Sum of first ', n, ' numbers (Basic LOOP): ', total_sum) AS Result;
+    -> END procedure_sum_natural_loop_142; //
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:02 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:02 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:04 2025 
+>CALL sum_natural_loop_142(5);
++-----------------------------------------+
+| Result                                  |
++-----------------------------------------+
+| Sum of first 5 numbers (Basic LOOP): 15 |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:12 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:30 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:30 2025 
+>CREATE PROCEDURE sum_natural_while_142 (
+    ->     IN n INT
+    -> )
+    -> procedure_sum_natural_while_142: BEGIN
+    ->     DECLARE counter INT DEFAULT 1;
+    ->     DECLARE total_sum INT DEFAULT 0;
+    -> 
+    ->     WHILE counter <= n DO
+    ->         SET total_sum = total_sum + counter;
+    ->         SET counter = counter + 1;
+    ->     END WHILE;
+    -> 
+    ->     SELECT CONCAT('Sum of first ', n, ' numbers (WHILE LOOP): ', total_sum) AS Result;
+    -> END procedure_sum_natural_while_142;//
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:30 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:30 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:34 2025 
+>CALL sum_natural_while_142(5);
++-----------------------------------------+
+| Result                                  |
++-----------------------------------------+
+| Sum of first 5 numbers (WHILE LOOP): 15 |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:02:40 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:03 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:03 2025 
+>CREATE PROCEDURE factorial_loop_142 (
+    ->     IN p_number INT
+    -> )
+    -> procedure_factorial_loop_142: BEGIN
+    ->     DECLARE i INT DEFAULT 1;
+    ->     DECLARE factorial_result DECIMAL(30, 0) DEFAULT 1;
+    -> 
+    ->     IF p_number < 0 THEN
+    ->         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Factorial is not defined for negative numbers.';
+    ->         LEAVE procedure_factorial_loop_142;
+    ->     END IF;
+    -> 
+    ->     factorial_loop: LOOP
+    ->         IF i > p_number THEN
+    ->             LEAVE factorial_loop;
+    ->         END IF;
+    -> 
+    ->         SET factorial_result = factorial_result * i;
+    ->         SET i = i + 1;
+    ->     END LOOP factorial_loop;
+    -> 
+    ->     SELECT CONCAT('Factorial of ', p_number, ' is: ', factorial_result) AS Result;
+    -> END procedure_factorial_loop_142;//
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:03 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:03 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:05 2025 
+>CALL factorial_loop_142(5);
++------------------------+
+| Result                 |
++------------------------+
+| Factorial of 5 is: 120 |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:13 2025 
+>DELIMITER //
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:25 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:25 2025 
+>CREATE PROCEDURE factorial_repeat_142 (
+    ->     IN p_number INT
+    -> )
+    -> procedure_factorial_repeat_142: BEGIN
+    ->     DECLARE i INT DEFAULT 1;
+    ->     DECLARE factorial_result DECIMAL(30, 0) DEFAULT 1;
+    -> 
+    ->     IF p_number < 0 THEN
+    ->         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Factorial is not defined for negative numbers.';
+    ->         LEAVE procedure_factorial_repeat_142;
+    ->     END IF;
+    -> 
+    ->     REPEAT
+    ->         SET factorial_result = factorial_result * i;
+    ->         SET i = i + 1;
+    ->     UNTIL i > p_number END REPEAT;
+    -> 
+    ->     SELECT CONCAT('Factorial of ', p_number, ' is: ', factorial_result) AS Result;
+    -> END procedure_factorial_repeat_142;//
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:25 2025 
+>
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:25 2025 
+>DELIMITER ;
+
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:03:27 2025 
+>CALL factorial_repeat_142(6);
++------------------------+
+| Result                 |
++------------------------+
+| Factorial of 6 is: 720 |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+24012011142_Vatsal [Practical_6_24012011142] Tue Nov  4 02:23:02 2025 
+>exit
