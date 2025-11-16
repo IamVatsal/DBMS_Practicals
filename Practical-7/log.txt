@@ -1,0 +1,716 @@
+mysql> PROMPT 24012011142_Vatsal [\d] \D \n>
+PROMPT set to '24012011142_Vatsal [\d] \D \n>'
+
+24012011142_Vatsal [(none)] Mon Nov 17 01:43:08 2025 
+>CREATE DATABASE practical_7_24012011142;
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [(none)] Mon Nov 17 01:43:40 2025 
+>USE practical_7_24012011142;
+Database changed
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:18:08 2025 
+>CREATE TABLE Grade (
+    ->     name VARCHAR(255),
+    ->     salary INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:18:23 2025 
+>DESC Grade;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| name   | varchar(255) | YES  |     | NULL    |       |
+| salary | int          | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:18:23 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:18:23 2025 
+>INSERT INTO Grade (name, salary) VALUES
+    -> ('Rima', 10000);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:18:23 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:18:23 2025 
+>SELECT * FROM Grade;
++------+--------+
+| name | salary |
++------+--------+
+| Rima |  10000 |
++------+--------+
+1 row in set (0.00 sec)
+
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:22:37 2025 
+>START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:06 2025 
+>INSERT INTO Grade (name, salary) VALUES ('abc', 6000);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:06 2025 
+>UPDATE Grade SET salary = 4000 WHERE name = 'Rima';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:06 2025 
+>ROLLBACK;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:06 2025 
+>COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:11 2025 
+>SELECT * FROM Grade;
++------+--------+
+| name | salary |
++------+--------+
+| Rima |   1000 |
++------+--------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:16 2025 
+>START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:38 2025 
+>INSERT INTO Grade (name, salary) VALUES ('abc', 6000);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:38 2025 
+>UPDATE Grade SET salary = 4000 WHERE name = 'Rima';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:38 2025 
+>COMMIT;
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:38 2025 
+>ROLLBACK;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:39 2025 
+>SELECT * FROM Grade;
++------+--------+
+| name | salary |
++------+--------+
+| Rima |   4000 |
+| abc  |   6000 |
++------+--------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:24:47 2025 
+>START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:25:27 2025 
+>INSERT INTO Grade (name, salary) VALUES ('xyz', 7000);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:25:27 2025 
+>SAVEPOINT first;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:25:27 2025 
+>UPDATE Grade SET salary = 50000 WHERE name = 'xyz';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:25:27 2025 
+>ROLLBACK TO first;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:25:27 2025 
+>COMMIT;
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 03:25:28 2025 
+>SELECT * FROM Grade;
++------+--------+
+| name | salary |
++------+--------+
+| Rima |   4000 |
+| abc  |   6000 |
+| xyz  |   7000 |
++------+--------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:43:51 2025 
+>CREATE TABLE Employee_Details (
+    ->     name VARCHAR(255),
+    ->     salary INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:45:50 2025 
+>desc Employee_Details;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| name   | varchar(255) | YES  |     | NULL    |       |
+| salary | int          | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:54:50 2025 
+>INSERT INTO Employee_Details (name, salary) VALUES
+    -> ('Riya', 1000),
+    -> ('Rima', 2000);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:55:15 2025 
+>SELECT * FROM Employee_Details;
++------+--------+
+| name | salary |
++------+--------+
+| Riya |   1000 |
+| Rima |   2000 |
++------+--------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:55:28 2025 
+>DELIMITER $$
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:55:35 2025 
+>CREATE PROCEDURE addNewEmployee_And_UpdateSalaries(IN newName VARCHAR(255), IN newSalary INT)
+    -> BEGIN
+    ->     DECLARE totalSal INT;
+    -> 
+    ->     START TRANSACTION;
+    -> 
+    ->     -- Insert new record
+    ->     INSERT INTO Employee_Details(name, salary)
+    ->     VALUES (newName, newSalary);
+    -> 
+    ->     -- Update Riya & Rima
+    ->     UPDATE Employee_Details
+    ->     SET salary = salary + 7000
+    ->     WHERE name IN ('Riya', 'Rima');
+    -> 
+    ->     -- Check total salary
+    ->     SELECT SUM(salary) INTO totalSal FROM Employee_Details;
+    -> 
+    ->     IF totalSal > 20000 THEN
+    ->         ROLLBACK;
+    ->         SIGNAL SQLSTATE '45000'
+    ->             SET MESSAGE_TEXT = 'TOTAL SALARY EXCEEDED 20000';
+    ->     ELSE
+    ->         COMMIT;
+    ->     END IF;
+    -> END $$
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:55:44 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:55:50 2025 
+>CALL addNewEmployee_And_UpdateSalaries('Vatsal', 2000);
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:56:20 2025 
+>SELECT * FROM Employee_Details;
++--------+--------+
+| name   | salary |
++--------+--------+
+| Riya   |   8000 |
+| Rima   |   9000 |
+| Vatsal |   2000 |
++--------+--------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:56:34 2025 
+>CALL addNewEmployee_And_UpdateSalaries('Kush', 2000);
+ERROR 1644 (45000): TOTAL SALARY EXCEEDED 20000
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:57:00 2025 
+>SELECT * FROM Employee_Details;
++--------+--------+
+| name   | salary |
++--------+--------+
+| Riya   |   8000 |
+| Rima   |   9000 |
+| Vatsal |   2000 |
++--------+--------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 01:57:04 2025 
+>DELIMITER $$
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:00:13 2025 
+>CREATE PROCEDURE give_salary_raise()
+    -> BEGIN
+    ->     START TRANSACTION;
+    ->     UPDATE Employee_Details
+    ->     SET salary = salary * 1.05;
+    ->     COMMIT;
+    -> END $$
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:00:20 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:00:27 2025 
+>SELECT * FROM Employee_Details;
++--------+--------+
+| name   | salary |
++--------+--------+
+| Riya   |   8000 |
+| Rima   |   9000 |
+| Vatsal |   2000 |
++--------+--------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:01:13 2025 
+>CALL give_salary_raise();
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:01:20 2025 
+>SELECT * FROM Employee_Details;
++--------+--------+
+| name   | salary |
++--------+--------+
+| Riya   |   8400 |
+| Rima   |   9450 |
+| Vatsal |   2100 |
++--------+--------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:01:26 2025 
+>CREATE TABLE Empmaster (
+    ->     No INT,
+    ->     Name VARCHAR(255),
+    ->     City VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:24 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:24 2025 
+>DESC Empmaster;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| No    | int          | YES  |     | NULL    |       |
+| Name  | varchar(255) | YES  |     | NULL    |       |
+| City  | varchar(255) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:24 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:24 2025 
+>INSERT INTO Empmaster (No, Name, City) VALUES
+    -> (10, 'Riya', 'Bombay'),
+    -> (20, 'Rima', 'Delhi'),
+    -> (30, 'Rekha', 'Bombay'),
+    -> (40, 'Dhara', 'Ahmedabad'),
+    -> (50, 'Dhaval', 'Jaipur');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:27 2025 
+>SELECT * FROM Empmaster;
++------+--------+-----------+
+| No   | Name   | City      |
++------+--------+-----------+
+|   10 | Riya   | Bombay    |
+|   20 | Rima   | Delhi     |
+|   30 | Rekha  | Bombay    |
+|   40 | Dhara  | Ahmedabad |
+|   50 | Dhaval | Jaipur    |
++------+--------+-----------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:44 2025 
+>CREATE TABLE CITYLIST (
+    ->     No INT,
+    ->     Name VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:51 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:51 2025 
+>DESC CITYLIST;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| No    | int          | YES  |     | NULL    |       |
+| Name  | varchar(255) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:07:52 2025 
+>DELIMITER $$
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:08:54 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:08:54 2025 
+>CREATE PROCEDURE move_bombay_employees()
+    -> BEGIN
+    ->     INSERT INTO CITYLIST(No, Name)
+    ->     SELECT No, Name
+    ->     FROM Empmaster
+    ->     WHERE City='Bombay';
+    -> END $$
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:08:54 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:08:54 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:08:56 2025 
+>SELECT * FROM Empmaster;
++------+--------+-----------+
+| No   | Name   | City      |
++------+--------+-----------+
+|   10 | Riya   | Bombay    |
+|   20 | Rima   | Delhi     |
+|   30 | Rekha  | Bombay    |
+|   40 | Dhara  | Ahmedabad |
+|   50 | Dhaval | Jaipur    |
++------+--------+-----------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:09:26 2025 
+>CALL move_bombay_employees();
+Query OK, 2 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:09:46 2025 
+>SELECT * FROM CITYLIST;
++------+-------+
+| No   | Name  |
++------+-------+
+|   10 | Riya  |
+|   30 | Rekha |
++------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:10:04 2025 
+>CREATE TABLE Temp (
+    ->     No INT,
+    ->     Company VARCHAR(255),
+    ->     Salary DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>DESC Temp;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| No      | int           | YES  |     | NULL    |       |
+| Company | varchar(255)  | YES  |     | NULL    |       |
+| Salary  | decimal(10,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>INSERT INTO Temp (No, Company, Salary) VALUES
+    -> (1, 'IBM', 5000000),
+    -> (2, 'GOOGLE', 7000000),
+    -> (3, 'MICROSOFT', 6000000);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>SELECT * FROM Temp;
++------+-----------+------------+
+| No   | Company   | Salary     |
++------+-----------+------------+
+|    1 | IBM       | 5000000.00 |
+|    2 | GOOGLE    | 7000000.00 |
+|    3 | MICROSOFT | 6000000.00 |
++------+-----------+------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>DELIMITER $$
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>CREATE PROCEDURE updateCompanySalary(IN companyName VARCHAR(50))
+    -> BEGIN
+    ->     DECLARE done INT DEFAULT 0;
+    ->     DECLARE v_no INT;
+    ->     DECLARE v_salary INT;
+    -> 
+    ->     DECLARE cur CURSOR FOR
+    ->         SELECT no, salary FROM Temp WHERE company = companyName;
+    -> 
+    ->     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    -> 
+    ->     OPEN cur;
+    -> 
+    ->     read_loop: LOOP
+    ->         FETCH cur INTO v_no, v_salary;
+    ->         IF done = 1 THEN
+    ->             LEAVE read_loop;
+    ->         END IF;
+    -> 
+    ->         UPDATE Temp
+    ->         SET salary = salary + 100000
+    ->         WHERE no = v_no;
+    ->     END LOOP;
+    -> 
+    ->     CLOSE cur;
+    -> END $$
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:54 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:21:56 2025 
+>SELECT * FROM Temp;
++------+-----------+------------+
+| No   | Company   | Salary     |
++------+-----------+------------+
+|    1 | IBM       | 5000000.00 |
+|    2 | GOOGLE    | 7000000.00 |
+|    3 | MICROSOFT | 6000000.00 |
++------+-----------+------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:22:03 2025 
+>CALL updateCompanySalary('GOOGLE');
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:22:09 2025 
+>SELECT * FROM Temp;
++------+-----------+------------+
+| No   | Company   | Salary     |
++------+-----------+------------+
+|    1 | IBM       | 5000000.00 |
+|    2 | GOOGLE    | 7100000.00 |
+|    3 | MICROSOFT | 6000000.00 |
++------+-----------+------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:22:13 2025 
+>SELECT no, name
+    -> FROM Empmaster
+    -> LIMIT 3;
++------+-------+
+| no   | name  |
++------+-------+
+|    1 | Riya  |
+|    2 | Rima  |
+|    3 | Rekha |
++------+-------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:25:31 2025 
+>DELIMITER $$
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:25:44 2025 
+>CREATE PROCEDURE show_3()
+    -> BEGIN
+    ->     DECLARE done INT DEFAULT 0;
+    ->     DECLARE v_no INT;
+    ->     DECLARE v_name VARCHAR(255);
+    -> 
+    ->     DECLARE cur CURSOR FOR SELECT no, name FROM Empmaster LIMIT 3;
+    ->     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    ->     
+    ->     OPEN cur;
+    -> 
+    ->     read_loop: LOOP
+    ->         FETCH cur INTO v_no, v_name;
+    ->         IF done = 1 THEN LEAVE read_loop; END IF;
+    -> 
+    ->         SELECT v_no AS No, v_name AS Name;
+    ->     END LOOP;
+    -> 
+    ->     CLOSE cur;
+    -> END $$
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:25:44 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:25:45 2025 
+>CALL show_3();
++------+------+
+| No   | Name |
++------+------+
+|    1 | Riya |
++------+------+
+1 row in set (0.00 sec)
+
++------+------+
+| No   | Name |
++------+------+
+|    2 | Rima |
++------+------+
+1 row in set (0.00 sec)
+
++------+-------+
+| No   | Name  |
++------+-------+
+|    3 | Rekha |
++------+-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:26:00 2025 
+>CREATE TABLE EMPLOYEES (
+    ->     EmpNo INT,
+    ->     Name VARCHAR(255),
+    ->     Salary DECIMAL(10, 2),
+    ->     Designation VARCHAR(255),
+    ->     DeptID INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:30:42 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:30:42 2025 
+>DESC EMPLOYEES;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| EmpNo       | int           | YES  |     | NULL    |       |
+| Name        | varchar(255)  | YES  |     | NULL    |       |
+| Salary      | decimal(10,2) | YES  |     | NULL    |       |
+| Designation | varchar(255)  | YES  |     | NULL    |       |
+| DeptID      | int           | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:30:42 2025 
+>
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:30:42 2025 
+>INSERT INTO EMPLOYEES (EmpNo, Name, Salary, Designation, DeptID) VALUES
+    -> (1, 'Amit', 60000, 'Manager', 101),
+    -> (2, 'Suman', 50000, 'Developer', 102),
+    -> (3, 'Rakesh', 55000, 'Analyst', 101),
+    -> (4, 'Neha', 45000, 'Developer', 103),
+    -> (5, 'Vikram', 70000, 'Manager', 102),
+    -> (6, 'Pooja', 48000, 'Analyst', 103),
+    -> (7, 'Rahul', 52000, 'Developer', 101),
+    -> (8, 'Anita', 62000, 'Manager', 103),
+    -> (9, 'Suresh', 47000, 'Analyst', 102);
+Query OK, 9 rows affected (0.00 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:30:42 2025 
+>SELECT * FROM EMPLOYEES;
++-------+--------+----------+-------------+--------+
+| EmpNo | Name   | Salary   | Designation | DeptID |
++-------+--------+----------+-------------+--------+
+|     1 | Amit   | 60000.00 | Manager     |    101 |
+|     2 | Suman  | 50000.00 | Developer   |    102 |
+|     3 | Rakesh | 55000.00 | Analyst     |    101 |
+|     4 | Neha   | 45000.00 | Developer   |    103 |
+|     5 | Vikram | 70000.00 | Manager     |    102 |
+|     6 | Pooja  | 48000.00 | Analyst     |    103 |
+|     7 | Rahul  | 52000.00 | Developer   |    101 |
+|     8 | Anita  | 62000.00 | Manager     |    103 |
+|     9 | Suresh | 47000.00 | Analyst     |    102 |
++-------+--------+----------+-------------+--------+
+9 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:30:44 2025 
+>SELECT * FROM EMPLOYEES
+    -> ORDER BY Salary DESC
+    -> LIMIT 5;
++-------+--------+----------+-------------+--------+
+| EmpNo | Name   | Salary   | Designation | DeptID |
++-------+--------+----------+-------------+--------+
+|     5 | Vikram | 70000.00 | Manager     |    102 |
+|     8 | Anita  | 62000.00 | Manager     |    103 |
+|     1 | Amit   | 60000.00 | Manager     |    101 |
+|     3 | Rakesh | 55000.00 | Analyst     |    101 |
+|     7 | Rahul  | 52000.00 | Developer   |    101 |
++-------+--------+----------+-------------+--------+
+5 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:30:53 2025 
+>DELIMITER $$
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:31:05 2025 
+>CREATE PROCEDURE top5()
+    -> BEGIN
+    ->     DECLARE finished INT DEFAULT 0;
+    ->     DECLARE v_no INT;
+    ->     DECLARE v_name VARCHAR(50);
+    ->     DECLARE v_salary INT;
+    -> 
+    ->     DECLARE cur CURSOR FOR
+    ->         SELECT EmpNo, Name, Salary
+    ->         FROM EMPLOYEES
+    ->         ORDER BY Salary DESC
+    ->         LIMIT 5;
+    -> 
+    ->     DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
+    -> 
+    ->     OPEN cur;
+    -> 
+    ->     read_loop: LOOP
+    ->         FETCH cur INTO v_no, v_name, v_salary;
+    ->         IF finished = 1 THEN LEAVE read_loop; END IF;
+    -> 
+    ->         SELECT v_no AS EmpNo, v_name AS Name, v_salary AS Salary;
+    ->     END LOOP;
+    -> 
+    ->     CLOSE cur;
+    -> END $$
+Query OK, 0 rows affected (0.00 sec)
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:31:05 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:33:27 2025 
+>CALL top5();
++-------+--------+--------+
+| EmpNo | Name   | Salary |
++-------+--------+--------+
+|     5 | Vikram |  70000 |
++-------+--------+--------+
+1 row in set (0.00 sec)
+
++-------+-------+--------+
+| EmpNo | Name  | Salary |
++-------+-------+--------+
+|     8 | Anita |  62000 |
++-------+-------+--------+
+1 row in set (0.00 sec)
+
++-------+------+--------+
+| EmpNo | Name | Salary |
++-------+------+--------+
+|     1 | Amit |  60000 |
++-------+------+--------+
+1 row in set (0.00 sec)
+
++-------+--------+--------+
+| EmpNo | Name   | Salary |
++-------+--------+--------+
+|     3 | Rakesh |  55000 |
++-------+--------+--------+
+1 row in set (0.00 sec)
+
++-------+-------+--------+
+| EmpNo | Name  | Salary |
++-------+-------+--------+
+|     7 | Rahul |  52000 |
++-------+-------+--------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_7_24012011142] Mon Nov 17 02:33:37 2025 
+>NOTEE;
