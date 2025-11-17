@@ -1,0 +1,257 @@
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:10:37 2025 
+>DROP DATABASE IF EXISTS practical_9_24012011142;
+Query OK, 1 row affected (0.02 sec)
+
+24012011142_Vatsal [(none)] Tue Nov 18 01:11:45 2025 
+>DROP DATABASE IF EXISTS practical_9_24012011142;
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+24012011142_Vatsal [(none)] Tue Nov 18 01:11:48 2025 
+>CREATE DATABASE practical_9_24012011142;
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [(none)] Tue Nov 18 01:11:48 2025 
+>USE practical_9_24012011142;
+Database changed
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:11:49 2025 
+>CREATE TABLE STUDENT (
+    ->     sr_no VARCHAR(10) PRIMARY KEY,
+    ->     name VARCHAR(50),
+    ->     address VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:11:54 2025 
+>DESC STUDENT;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| sr_no   | varchar(10)  | NO   | PRI | NULL    |       |
+| name    | varchar(50)  | YES  |     | NULL    |       |
+| address | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:11:54 2025 
+>INSERT INTO STUDENT (sr_no, name, address) VALUES
+    -> ('10IT49', 'Vatsal', 'Gujarat'),
+    -> ('10IT50', 'Riya', 'Gujarat'),
+    -> ('10IT51', 'Aryan', 'Gujarat');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:16 2025 
+>SELECT * FROM STUDENT;
++--------+--------+---------+
+| sr_no  | name   | address |
++--------+--------+---------+
+| 10IT49 | Vatsal | Gujarat |
+| 10IT50 | Riya   | Gujarat |
+| 10IT51 | Aryan  | Gujarat |
++--------+--------+---------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:18 2025 
+>DELIMITER $$
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:23 2025 
+>CREATE PROCEDURE get_student()
+    -> BEGIN
+    ->     DECLARE v_name VARCHAR(100);
+    ->     DECLARE v_address VARCHAR(200);
+    ->     DECLARE not_found INT DEFAULT 0;
+    -> 
+    ->     DECLARE CONTINUE HANDLER FOR NOT FOUND 
+    ->         SET not_found = 1;
+    -> 
+    ->     SELECT name, address INTO v_name, v_address
+    ->     FROM student
+    ->     WHERE sr_no = '10IT48';
+    -> 
+    ->     IF not_found = 1 THEN
+    ->         SELECT 'data not found' AS message;
+    ->     ELSE
+    ->         SELECT v_name AS name, v_address AS address;
+    ->     END IF;
+    -> 
+    -> END$$
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:23 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:24 2025 
+>CALL get_student();
++----------------+
+| message        |
++----------------+
+| data not found |
++----------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:28 2025 
+>DELIMITER $$
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:40 2025 
+>CREATE PROCEDURE example_too_many_rows()
+    -> BEGIN
+    ->     DECLARE msg VARCHAR(100);
+    -> 
+    ->     DECLARE CONTINUE HANDLER FOR 1172     -- MySQL error: Subquery returns more than 1 row
+    ->         SET msg = 'TOO MANY ROWS ERROR OCCURRED';
+    -> 
+    ->     -- This SELECT must return exactly 1 row, otherwise error 1172
+    ->     SELECT name INTO msg
+    ->     FROM STUDENT
+    ->     WHERE address = 'Gujarat';   -- assume many students from Gujarat
+    -> 
+    ->     SELECT msg AS result;
+    -> 
+    -> END$$
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:40 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:40 2025 
+>CALL example_too_many_rows();
++------------------------------+
+| result                       |
++------------------------------+
+| TOO MANY ROWS ERROR OCCURRED |
++------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:12:55 2025 
+>CREATE TABLE emp_mas (
+    ->     emp_no INT,
+    ->     name VARCHAR(50),
+    ->     PRIMARY KEY (emp_no)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:08 2025 
+>DESC emp_mas;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_no | int         | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:08 2025 
+>INSERT INTO emp_mas (emp_no, name) VALUES
+    -> (101, 'Vatsal'),
+    -> (102, 'Riya');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:08 2025 
+>SELECT * FROM emp_mas;
++--------+--------+
+| emp_no | name   |
++--------+--------+
+|    101 | Vatsal |
+|    102 | Riya   |
++--------+--------+
+2 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:09 2025 
+>DELIMITER $$
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:15 2025 
+>CREATE PROCEDURE primary_key_violation()
+    -> BEGIN
+    ->     DECLARE msg VARCHAR(100) DEFAULT '';
+    -> 
+    ->     -- Handle Duplicate key exception
+    ->     DECLARE CONTINUE HANDLER FOR 1062 
+    ->         SET msg = 'PRIMARY KEY VIOLATION - DUPLICATE EMP_NO';
+    -> 
+    ->     -- Insert again ? will cause error 1062
+    ->     INSERT INTO emp_mas(emp_no, name)
+    ->     VALUES (101, 'Aryan');
+    -> 
+    ->     SELECT msg AS message;
+    -> END$$
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:15 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:15 2025 
+>CALL primary_key_violation();
++------------------------------------------+
+| message                                  |
++------------------------------------------+
+| PRIMARY KEY VIOLATION - DUPLICATE EMP_NO |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:20 2025 
+>DELIMITER $$
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:38 2025 
+>CREATE PROCEDURE insert_student(
+    ->     IN p_sr_no INT,
+    ->     IN p_name VARCHAR(100),
+    ->     IN p_address VARCHAR(200)
+    -> )
+    -> BEGIN
+    ->     -- User-defined exception: sr_no must be >= 0
+    ->     IF p_sr_no < 0 THEN
+    ->         SIGNAL SQLSTATE '45000'
+    ->             SET MESSAGE_TEXT = 'INVALID SR_NO: MUST BE >= 0';
+    ->     END IF;
+    -> 
+    ->     -- Insert when valid
+    ->     INSERT INTO student(sr_no, name, address)
+    ->     VALUES(p_sr_no, p_name, p_address);
+    -> 
+    -> END$$
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:38 2025 
+>DELIMITER ;
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:38 2025 
+>SELECT * FROM STUDENT;
++--------+--------+---------+
+| sr_no  | name   | address |
++--------+--------+---------+
+| 10IT49 | Vatsal | Gujarat |
+| 10IT50 | Riya   | Gujarat |
+| 10IT51 | Aryan  | Gujarat |
++--------+--------+---------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:54 2025 
+>CALL insert_student(-5, 'Vatsal', 'Ahmedabad');
+ERROR 1644 (45000): INVALID SR_NO: MUST BE >= 0
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:54 2025 
+>CALL insert_student(22, 'Kush', 'Ahmedabad');
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:54 2025 
+>SELECT * FROM STUDENT;
++--------+--------+-----------+
+| sr_no  | name   | address   |
++--------+--------+-----------+
+| 10IT49 | Vatsal | Gujarat   |
+| 10IT50 | Riya   | Gujarat   |
+| 10IT51 | Aryan  | Gujarat   |
+| 22     | Kush   | Ahmedabad |
++--------+--------+-----------+
+4 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_9_24012011142] Tue Nov 18 01:13:54 2025 
+>NOTEE;
