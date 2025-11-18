@@ -1,0 +1,253 @@
+
+24012011142_Vatsal [(none)] Wed Nov 19 00:23:08 2025 
+>DROP DATABASE IF EXISTS practical_10_24012011142;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+24012011142_Vatsal [(none)] Wed Nov 19 00:23:23 2025 
+>CREATE DATABASE practical_10_24012011142;
+Query OK, 1 row affected (0.01 sec)
+
+24012011142_Vatsal [(none)] Wed Nov 19 00:23:23 2025 
+>USE practical_10_24012011142;
+Database changed
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:23:23 2025 
+>CREATE TABLE Order_info (
+    ->     order_id INT PRIMARY KEY auto_increment,
+    ->     order_date DATE,
+    ->     order_amount INT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:23:38 2025 
+>DESC Order_info;
++--------------+------+------+-----+---------+----------------+
+| Field        | Type | Null | Key | Default | Extra          |
++--------------+------+------+-----+---------+----------------+
+| order_id     | int  | NO   | PRI | NULL    | auto_increment |
+| order_date   | date | YES  |     | NULL    |                |
+| order_amount | int  | YES  |     | NULL    |                |
++--------------+------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:23:39 2025 
+>INSERT INTO Order_info (order_date, order_amount) VALUES
+    -> ('2025-01-10', 4500),
+    -> ('2025-01-11', 6000),
+    -> ('2025-01-12', 3200);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:23:50 2025 
+>
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:23:50 2025 
+>SELECT * FROM Order_info;
++----------+------------+--------------+
+| order_id | order_date | order_amount |
++----------+------------+--------------+
+|        1 | 2025-01-10 |         4500 |
+|        2 | 2025-01-11 |         6000 |
+|        3 | 2025-01-12 |         3200 |
++----------+------------+--------------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:23:50 2025 
+>SELECT * FROM Order_info WHERE order_amount = 6000;
++----------+------------+--------------+
+| order_id | order_date | order_amount |
++----------+------------+--------------+
+|        2 | 2025-01-11 |         6000 |
++----------+------------+--------------+
+1 row in set (0.01 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:23:51 2025 
+>CREATE INDEX idx_order ON Order_info(order_amount);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:23:57 2025 
+>CREATE TABLE order_seq(val INT NOT NULL);
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:05 2025 
+>INSERT INTO order_seq(val) VALUES (1);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:05 2025 
+>UPDATE order_seq SET val = val + 3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:05 2025 
+>
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:05 2025 
+>SELECT val FROM order_seq;
++-----+
+| val |
++-----+
+|   4 |
++-----+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:06 2025 
+>UPDATE order_seq SET val = IF(val + 3 > 9999, 1, val + 3);
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:14 2025 
+>SELECT val FROM order_seq;
++-----+
+| val |
++-----+
+|   7 |
++-----+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:15 2025 
+>SELECT val FROM order_seq;
++-----+
+| val |
++-----+
+|   7 |
++-----+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:23 2025 
+>UPDATE order_seq SET val = val + 3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:24:32 2025 
+>SELECT val FROM order_seq;
++-----+
+| val |
++-----+
+|  10 |
++-----+
+1 row in set (0.00 sec)
+
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:27:31 2025 
+>CREATE TABLE order1(
+    ->     onum INT, 
+    ->     odate DATE
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:28:56 2025 
+>UPDATE order_seq SET val = val + 3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:28:56 2025 
+>INSERT INTO order1(onum, odate) VALUES ((SELECT val FROM order_seq), CURDATE());
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:28:56 2025 
+>SELECT * FROM order1;
++------+------------+
+| onum | odate      |
++------+------------+
+|   13 | 2025-11-19 |
++------+------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:28:57 2025 
+>DROP TABLE order_seq;
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:10 2025 
+>DROP INDEX idx_order ON Order_info;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:15 2025 
+>CREATE VIEW vw_order AS
+    -> SELECT order_date, order_amount FROM Order_info;
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:25 2025 
+>
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:25 2025 
+>SHOW CREATE VIEW vw_order;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+| View     | Create View                                                                                                                                                                                                    | character_set_client | collation_connection |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+| vw_order | CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_order` AS select `order_info`.`order_date` AS `order_date`,`order_info`.`order_amount` AS `order_amount` from `order_info` | cp850                | cp850_general_ci     |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:25 2025 
+>CREATE TABLE customer(
+    ->     cust_no INT PRIMARY KEY,
+    ->     cust_name VARCHAR(20),
+    ->     city VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:37 2025 
+>INSERT INTO customer(cust_no, cust_name, city) VALUES
+    -> (1, 'Vatsal', 'Ahmedabad'),
+    -> (2, 'Riya', 'Surat'),
+    -> (3, 'Aryan', 'Vadodara');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:37 2025 
+>CREATE VIEW vw_customer AS
+    -> SELECT cust_no, cust_name, city FROM customer;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:37 2025 
+>SHOW CREATE VIEW vw_customer;
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+| View        | Create View                                                                                                                                                                                                                 | character_set_client | collation_connection |
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+| vw_customer | CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_customer` AS select `customer`.`cust_no` AS `cust_no`,`customer`.`cust_name` AS `cust_name`,`customer`.`city` AS `city` from `customer` | cp850                | cp850_general_ci     |
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+1 row in set (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:37 2025 
+>SELECT * FROM customer;
++---------+-----------+-----------+
+| cust_no | cust_name | city      |
++---------+-----------+-----------+
+|       1 | Vatsal    | Ahmedabad |
+|       2 | Riya      | Surat     |
+|       3 | Aryan     | Vadodara  |
++---------+-----------+-----------+
+3 rows in set (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:29:47 2025 
+>INSERT INTO vw_order VALUES ('2025-01-13', 6000);
+Query OK, 1 row affected (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:31:03 2025 
+>CREATE TABLE 24012011142_order(
+    ->     order_no INT NOT NULL PRIMARY KEY,
+    ->     order_date DATE,
+    ->     order_amount INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:31:30 2025 
+>INSERT INTO 24012011142_order(order_no, order_date, order_amount) VALUES
+    -> (101, '2025-01-10', 4500),
+    -> (102, '2025-01-11', 6000),
+    -> (103, '2025-01-12', 3200);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:31:30 2025 
+>CREATE VIEW vw_24012011142_orders AS
+    -> SELECT order_date, order_amount FROM 24012011142_order;
+Query OK, 0 rows affected (0.00 sec)
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:31:30 2025 
+>INSERT INTO vw_24012011142_orders
+    -> VALUES ('2025-01-13', 7000);
+ERROR 1423 (HY000): Field of view 'practical_10_24012011142.vw_24012011142_orders' underlying table doesn't have a default value
+
+
+24012011142_Vatsal [practical_10_24012011142] Wed Nov 19 00:31:31 2025 
+>NOTEE;
